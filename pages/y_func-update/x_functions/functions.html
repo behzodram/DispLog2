@@ -69,11 +69,11 @@
 
 <!-- ── join folder ─────────────────────────────────────────────────────── -->
 <div class="fn-list folder-content" id="folder-join" style="display:none">
-
+    
     <div class="fn-row" onclick="selectFunction('DRIVER_LOAD')">
         <button class="fn-circle fn-join">⨝</button>
         <div class="fn-label">
-            <span class="fn-title">JOIN DRIVER</span>
+            <span class="fn-title">JOIN LOAD TO DRIVER</span>
             <span class="fn-desc">Yuk va haydovchi ma'lumotlarini birlashtirish</span>
         </div>
     </div>
@@ -81,11 +81,27 @@
     <div class="fn-row" onclick="selectFunction('YUKCHI_LOAD')">
         <button class="fn-circle fn-join">⨝</button>
         <div class="fn-label">
-            <span class="fn-title">JOIN YUKCHI</span>
-            <span class="fn-desc">Yuk va yukchi ma'lumotlarini birlashtirish</span>
+            <span class="fn-title">JOIN DRIVER TO YUKCHI</span>
+            <span class="fn-desc">Haydovchi va yukchi ma'lumotlarini birlashtirish</span>
         </div>
     </div>
-    
+
+    <div class="fn-row" onclick="selectFunction('SHOW_ALL_USERS')">
+        <button class="fn-circle fn-select">🔍</button>
+        <div class="fn-label">
+            <span class="fn-title">ALL USERS</span>
+            <span class="fn-desc">Barcha foydalanuvchilarni ko'rsatish</span>
+        </div>
+    </div>
+
+    <div class="fn-row" onclick="selectFunction('SHOW_USER')">
+        <button class="fn-circle fn-select">🔍</button>
+        <div class="fn-label">
+            <span class="fn-title">USER</span>
+            <span class="fn-desc">Foydalanuvchini ko'rsatish</span>
+        </div>
+    </div>
+
     <div id="TelegramFolderStyle" class="join-result-area"></div>
 
 </div>

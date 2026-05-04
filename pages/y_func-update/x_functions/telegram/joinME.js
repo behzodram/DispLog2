@@ -18,17 +18,79 @@ function YUKCHI_LOAD(phone, callback) {
             }
 
             if (callback) callback(result);
-            else renderResults(result, { emptyMsg: '∅ Mos haydovchi topilmadi', cardSchema: DRIVER_CARD_SCHEMA, cardOpts: {} });
+            else renderResults(result, { emptyMsg: '∅ Mos haydovchi topilmadi', groupBy: 'driver_ismi', groupPhoneKey: 'driver_phone', cardSchema: DRIVER_CARD_SCHEMA, cardOpts: {} });
         },
         function (err) {
             console.log("SQL Error:", err);
             if (callback) callback([]);
-            else renderResults([], { emptyMsg: '∅ Mos haydovchi topilmadi', cardSchema: DRIVER_CARD_SCHEMA, cardOpts: {} });
+            else renderResults([], { emptyMsg: '∅ Mos haydovchi topilmadi', groupBy: 'driver_ismi', groupPhoneKey: 'driver_phone', cardSchema: DRIVER_CARD_SCHEMA, cardOpts: {} });
         }
     );
 }
 
 // ─── Schemas ──────────────────────────────────────────────────────────────────
+var USER_CARD_SCHEMA = [
+    { icon: '👤', label: 'Ismi:',     key: 'ismi' },
+    { icon: '🏷',  label: 'Role:',     key: 'role' },
+    { icon: '📍', label: "Yo'nalish:", format: function(v, d) { return (d.qayerdan || '?') + ' → ' + (d.qayerga || '?'); } },
+    { icon: '🚚', label: 'Transport:', key: 'transport' },
+    { icon: '📞', label: 'Telefon:',   key: 'phone' }
+];
+
+function SHOW_USER(phone, callback) {
+    db.ExecuteSql(
+        queries['SHOW_USER'], [phone],
+        function (res) {
+            var result = [];
+            for (var i = 0; i < res.rows.length; i++) {
+                var row = res.rows.item(i);
+                result.push({
+                    ismi:      row.ismi,
+                    phone:     row.phone,
+                    role:      row.role,
+                    qayerdan:  row.qayerdan,
+                    qayerga:   row.qayerga,
+                    transport: row.transport
+                });
+            }
+            if (callback) callback(result);
+            else renderResults(result, { emptyMsg: '∅ Foydalanuvchi topilmadi', groupBy: 'ismi', groupPhoneKey: 'phone', cardSchema: USER_CARD_SCHEMA, cardOpts: {} });
+        },
+        function (err) {
+            console.log('SQL Error:', err);
+            if (callback) callback([]);
+            else renderResults([], { emptyMsg: '∅ Foydalanuvchi topilmadi', cardSchema: USER_CARD_SCHEMA, cardOpts: {} });
+        }
+    );
+}
+
+function SHOW_ALL_USERS(role, callback) {
+    db.ExecuteSql(
+        queries['SHOW_ALL_USERS'], [role],
+        function (res) {
+            var result = [];
+            for (var i = 0; i < res.rows.length; i++) {
+                var row = res.rows.item(i);
+                result.push({
+                    ismi:      row.ismi,
+                    phone:     row.phone,
+                    role:      row.role,
+                    qayerdan:  row.qayerdan,
+                    qayerga:   row.qayerga,
+                    transport: row.transport
+                });
+            }
+            if (callback) callback(result);
+            else renderResults(result, { emptyMsg: '∅ Foydalanuvchilar topilmadi', groupBy: 'ismi', groupPhoneKey: 'phone', cardSchema: USER_CARD_SCHEMA, cardOpts: {} });
+        },
+        function (err) {
+            console.log('SQL Error:', err);
+            if (callback) callback([]);
+            else renderResults([], { emptyMsg: '∅ Foydalanuvchilar topilmadi', groupBy: 'ismi', groupPhoneKey: 'phone', cardSchema: USER_CARD_SCHEMA, cardOpts: {} });
+        }
+    );
+}
+
 var DRIVER_CARD_SCHEMA = [
     { icon: '👤', label: 'Haydovchi:', key: 'driver_ismi' },
     { icon: '📍', label: "Yo'nalish:", format: function(v, d) { return (d.qayerdan || '?') + ' → ' + (d.qayerga || '?'); } },

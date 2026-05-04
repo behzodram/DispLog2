@@ -30,3 +30,14 @@ JOIN users d
 WHERE u.phone = ?
     AND u.role = 'SHIPPER'
     AND l.created_at >= datetime('now', '-1 day');
+
+-- SHOW_ALL_USERS:
+SELECT ismi, phone, role, qayerdan, qayerga, transport
+    FROM users
+    WHERE role = ?
+    ORDER BY ismi;
+
+-- SHOW_USER:
+SELECT ismi, phone, role, qayerdan, qayerga, transport
+    FROM users
+    WHERE phone = ?;

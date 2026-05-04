@@ -101,5 +101,29 @@ var functionSignatures = {
             // Kamasi: 1ta contact
             return data.contact.length == 1;
         }
+    },
+
+    SHOW_USER: {
+        name: 'SHOW_USER',
+        type: 'SELECT',
+        args: ['phone'],
+        sources: ['contact'],
+        description: 'Foydalanuvchini ko\'rsatish',
+        validator: function(data) {
+            // Kamasi: 1ta contact
+            return data.contact.length == 1;
+        }
+    },
+
+    SHOW_ALL_USERS: {
+        name: 'SHOW_ALL_USERS',
+        type: 'SELECT',
+        args: ['role'],
+        sources: ['role'],
+        description: 'Barcha foydalanuvchilarni ko\'rsatish',
+        validator: function(data) {
+            // Hech qanday source kerak emas
+            return true;
+        }
     }
 };

@@ -1,3 +1,138 @@
+function YUKCHI_LOAD(phone, callback) {
+    db.ExecuteSql(
+        queries['YUKCHI_JOIN_LOW'], [phone],
+        function (res) {
+
+            let result = [];
+
+            for (let i = 0; i < res.rows.length; i++) {
+                let row = res.rows.item(i);
+
+                result.push({
+                    driver_ismi: row.driver_ismi,
+                    driver_phone: row.phone,
+                    qayerdan: row.qayerdan,
+                    qayerga: row.qayerga,
+                    transport: row.transport
+                });
+            }
+
+            if (callback) callback(result);
+            else renderResults(result, { emptyMsg: '∅ Mos haydovchi topilmadi', cardSchema: DRIVER_CARD_SCHEMA, cardOpts: {} });
+        },
+        function (err) {
+            console.log("SQL Error:", err);
+            if (callback) callback([]);
+            else renderResults([], { emptyMsg: '∅ Mos haydovchi topilmadi', cardSchema: DRIVER_CARD_SCHEMA, cardOpts: {} });
+        }
+    );
+}
+
+// ─── Schemas ──────────────────────────────────────────────────────────────────
+var DRIVER_CARD_SCHEMA = [
+    { icon: '👤', label: 'Haydovchi:', key: 'driver_ismi' },
+    { icon: '📍', label: "Yo'nalish:", format: function(v, d) { return (d.qayerdan || '?') + ' → ' + (d.qayerga || '?'); } },
+    { icon: '🚚', label: 'Transport:', key: 'transport' },
+    { icon: '📞', label: 'Telefon:',   key: 'driver_phone' }
+];
+
+var LOAD_CARD_SCHEMA = [
+    { icon: '📍', label: "Yo'nalish:", format: function(v, d) { return (d.qayerdan || '?') + ' → ' + (d.qayerga || '?'); } },
+    { icon: '🏘', label: 'Tuman:',     format: function(v, d) { return (d.tumandan || d.tumanga) ? (d.tumandan || '?') + ' → ' + (d.tumanga || '?') : null; } },
+    { icon: '🚚', label: 'Transport:', key: 'transport' },
+    { icon: '⚖',  label: 'Tonna:',    format: function(v, d) { return d.tonna ? d.tonna + ' T' : null; } },
+    { icon: '📦', label: 'Turi:',      key: 'turi' },
+    { icon: '⏰', label: 'Holati:',   key: 'yopilgan' },
+    { icon: '💰', label: "Narx:",      format: function(v, d) { return d.narx ? Number(d.narx).toLocaleString() + " so'm" : null; } },
+    { icon: '👤', label: 'Yukchi:',    key: 'yukchi_phone' }
+];
+
+// ─── Universal card builder ────────────────────────────────────────────────────
+// schema: [{ icon, label, key? | format?(val, data) }]
+// opts:   { clipboard?, statusKey? }
+function _buildCard(data, schema, opts) {
+    opts = opts || {};
+    var card = document.createElement('div');
+    card.className = 'tg-load-card';
+    var clipLines = [];
+
+    for (var i = 0; i < schema.length; i++) {
+        var s   = schema[i];
+        var val = s.format ? s.format(null, data)
+                : (s.key !== undefined) ? data[s.key]
+                : null;
+        if (val === null || val === undefined || val === '') continue;
+
+        var div  = document.createElement('div');
+        div.className = 'tg-load-row';
+        var sp1 = document.createElement('span');
+        sp1.className = 'tg-load-icon';
+        sp1.textContent = s.icon;
+        var sp2 = document.createElement('span');
+        sp2.className = 'tg-load-val';
+        var b = document.createElement('b');
+        b.textContent = s.label + ' ';
+        sp2.appendChild(b);
+        sp2.appendChild(document.createTextNode(val));
+        div.appendChild(sp1);
+        div.appendChild(sp2);
+        card.appendChild(div);
+
+        if (opts.clipboard) clipLines.push(s.icon + ' ' + s.label + ' ' + val);
+    }
+
+    if (opts.clipboard && clipLines.length) {
+        app.SetClipboardText(clipLines.join('\n'));
+        app.ShowPopup("Ma'lumotlar clipboardga nusxalandi");
+    }
+
+    if (opts.statusKey) {
+        var isOpen = String(data[opts.statusKey]).toUpperCase() !== 'CLOSED';
+        var badge  = document.createElement('span');
+        badge.className = 'tg-status-badge ' + (isOpen ? 'tg-status-open' : 'tg-status-closed');
+        badge.textContent = isOpen ? 'OPEN' : 'CLOSED';
+        card.appendChild(badge);
+    }
+
+    return card;
+}
+
+// ─── Universal render ──────────────────────────────────────────────────────────
+// opts: { containerId?, emptyMsg?, groupBy?, groupPhoneKey?, cardSchema, cardOpts? }
+function renderResults(results, opts) {
+    opts = opts || {};
+    var container = document.getElementById(opts.containerId || 'TelegramFolderStyle');
+    if (!container) return;
+    container.innerHTML = '';
+
+    if (!results || results.length === 0) {
+        container.innerHTML = '<div class="tg-empty">' + (opts.emptyMsg || '∅ Natija topilmadi') + '</div>';
+        return;
+    }
+
+    if (!opts.groupBy) {
+        for (var i = 0; i < results.length; i++) {
+            container.appendChild(_buildCard(results[i], opts.cardSchema, opts.cardOpts));
+        }
+        return;
+    }
+
+    var groups = {}, order = [];
+    for (var i = 0; i < results.length; i++) {
+        var r   = results[i];
+        var key = r[opts.groupBy] || r[opts.groupPhoneKey] || '—';
+        if (!groups[key]) {
+            groups[key] = { ismi: key, phone: r[opts.groupPhoneKey], loads: [] };
+            order.push(key);
+        }
+        groups[key].loads.push(r);
+    }
+
+    for (var f = 0; f < order.length; f++) {
+        container.appendChild(_buildFolder(groups[order[f]], f, opts.cardSchema, opts.cardOpts));
+    }
+}
+
 function DRIVER_LOAD(phone, callback) {
     // phone = FormatPhonePretty(phone);
     // if ( policyPhone(phone) === false ) return;
@@ -28,44 +163,16 @@ function DRIVER_LOAD(phone, callback) {
             }
 
             if (callback) callback(result);
-            else renderTelegramFolders(result);
+            else renderResults(result, { emptyMsg: '∅ Mos yuk topilmadi', groupBy: 'yukchi_ismi', groupPhoneKey: 'yukchi_phone', cardSchema: LOAD_CARD_SCHEMA, cardOpts: { clipboard: true, statusKey: 'yopilgan' } });
         },
         function (err) {
             console.log("SQL Error:", err);
             if (callback) callback([]);
-            else renderTelegramFolders([]);
+            else renderResults([], { emptyMsg: '∅ Mos yuk topilmadi', groupBy: 'yukchi_ismi', groupPhoneKey: 'yukchi_phone', cardSchema: LOAD_CARD_SCHEMA, cardOpts: { clipboard: true, statusKey: 'yopilgan' } });
         }
     );
 }
 
-// ─── renderTelegramFolders ─────────────────────────────────────────────────────────────
-function renderTelegramFolders(results) {
-    var container = document.getElementById('TelegramFolderStyle');
-    if (!container) return;
-    container.innerHTML = '';
-
-    if (!results || results.length === 0) {
-        container.innerHTML = '<div class="tg-empty">∅ Mos yuk topilmadi</div>';
-        return;
-    }
-
-    // yukchi_ismi bo'yicha guruhlash
-    var groups = {};
-    var order  = [];
-    for (var i = 0; i < results.length; i++) {
-        var r   = results[i];
-        var key = r.yukchi_ismi || r.yukchi_phone || '—';
-        if (!groups[key]) {
-            groups[key] = { ismi: key, phone: r.yukchi_phone, loads: [] };
-            order.push(key);
-        }
-        groups[key].loads.push(r);
-    }
-
-    for (var f = 0; f < order.length; f++) {
-        container.appendChild(_buildFolder(groups[order[f]], f));
-    }
-}
 
 function _folderAvatarColor(str) {
     var palette = ['#5a8fbf','#4a9b6f','#b89c5f','#7a5abf','#bf5a7a','#5abfb0','#9b6f4a'];
@@ -74,7 +181,7 @@ function _folderAvatarColor(str) {
     return palette[h % palette.length];
 }
 
-function _buildFolder(group, idx) {
+function _buildFolder(group, idx, cardSchema, cardOpts) {
     var folder = document.createElement('div');
     folder.className = 'tg-folder';
 
@@ -119,7 +226,7 @@ function _buildFolder(group, idx) {
     var body = document.createElement('div');
     body.className = 'tg-folder-body';
     for (var i = 0; i < group.loads.length; i++) {
-        body.appendChild(_buildLoadCard(group.loads[i]));
+        body.appendChild(_buildCard(group.loads[i], cardSchema, cardOpts));
     }
 
     folder.appendChild(header);
@@ -129,68 +236,4 @@ function _buildFolder(group, idx) {
     if (idx === 0) folder.classList.add('open');
 
     return folder;
-}
-
-function _buildLoadCard(load) {
-    var card = document.createElement('div');
-    card.className = 'tg-load-card';
-    
-    function getRow(icon, label, val) {
-        return icon + ' ' + label + ' ' + (val || '—');
-    }
-
-    function addRow(icon, label, val) {
-        let got  = getRow(icon, label, val);
-        if (val === null || val === undefined || val === '') return;
-        var div = document.createElement('div');
-        div.className = 'tg-load-row';
-        var span1 = document.createElement('span');
-        span1.className = 'tg-load-icon';
-        span1.textContent = icon;
-        var span2 = document.createElement('span');
-        span2.className = 'tg-load-val';
-        var b = document.createElement('b');
-        b.textContent = label + ' ';
-        span2.appendChild(b);
-        span2.appendChild(document.createTextNode(val));
-        div.appendChild(span1);
-        div.appendChild(span2);
-        card.appendChild(div);
-        return got;
-    }
-
-    var route    = (load.qayerdan || '?') + ' → ' + (load.qayerga || '?');
-    var district = (load.tumandan || load.tumanga)
-                    ? (load.tumandan || '?') + ' → ' + (load.tumanga || '?')
-                    : null;
-    
-    let InfoAdd = '';
-
-                      addRow('📍', 'Yo\'nalish:', route);
-    InfoAdd += '\n' + getRow('📍', 'Yo\'nalish:', route);
-                      addRow('🏘', 'Tuman:',     district);
-    InfoAdd += '\n' + getRow('🏘', 'Tuman:',     district);
-                      addRow('🚚', 'Transport:', load.transport);
-    InfoAdd += '\n' + getRow('🚚', 'Transport:', load.transport);
-                      addRow('⚖',  'Tonna:',     load.tonna ? load.tonna + ' T' : null);
-    InfoAdd += '\n' + getRow('⚖',  'Tonna:',     load.tonna ? load.tonna + ' T' : null);
-                      addRow('📦', 'Turi:',      load.turi);
-    InfoAdd += '\n' + getRow('📦', 'Turi:',      load.turi);
-                      addRow('⏰', 'Yopilgan:',   load.yopilgan);
-    InfoAdd += '\n' + getRow('⏰', 'Yopilgan:',   load.yopilgan);
-    // loadInfo += '\n' + addRow('💬', 'Matni:',     load.matni);
-    addRow('💰', 'Narx:',      load.narx ? Number(load.narx).toLocaleString() + ' so\'m' : null);
-    addRow('👤', 'Yukchi:',    load.yukchi_phone);
-
-    console.log("InfoAdd: ", InfoAdd);
-    app.SetClipboardText(InfoAdd.trim());
-    app.ShowPopup("Yuk ma'lumotlari clipboardga nusxalandi");
-
-    var isOpen = String(load.yopilgan).toUpperCase() !== 'CLOSED';
-    var statusBadge = document.createElement('span');
-    statusBadge.className = 'tg-status-badge ' + (isOpen ? 'tg-status-open' : 'tg-status-closed');
-    statusBadge.textContent = isOpen ? 'OPEN' : 'CLOSED';
-    card.appendChild(statusBadge);
-
-    return card;
 }

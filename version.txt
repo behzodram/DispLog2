@@ -1,3 +1,4 @@
+v 1.9.5 => main: Yukchi Join added. No Test
 v 1.9.4 => main: Sahifa telegram style qilindi. No APK test.
 v 1.9.3 => main: init commit2
 v 1.9.2 => main: 1ta oldingi commit davomi. Special qilindi. No test.

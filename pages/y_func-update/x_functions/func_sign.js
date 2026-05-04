@@ -89,5 +89,17 @@ var functionSignatures = {
             // Kamasi: 1ta contact
             return data.contact.length == 1;
         }
+    },
+
+    YUKCHI_LOAD: {
+        name: 'YUKCHI_LOAD',
+        type: 'SELECT',
+        args: ['phone'],
+        sources: ['contact'],
+        description: 'Yukchining yuklarini ko\'rish',
+        validator: function(data) {
+            // Kamasi: 1ta contact
+            return data.contact.length == 1;
+        }
     }
 };

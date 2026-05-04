@@ -1,0 +1,82 @@
+/* ── fn-section ─────────────────────────────────────────────────────────── */
+.fn-section h3 {
+    margin-bottom: 14px;
+}
+
+.fn-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* ── fn-row: circle + label ──────────────────────────────────────────────── */
+.fn-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 8px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.18s;
+    border: 1px solid transparent;
+}
+
+.fn-row:hover {
+    background: rgba(255,255,255,0.05);
+    border-color: #3a3f4c;
+}
+
+.fn-row:active {
+    background: rgba(255,255,255,0.09);
+}
+
+/* ── circle button ───────────────────────────────────────────────────────── */
+.fn-circle {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    border-radius: 50%;
+    border: none;
+    font-size: 20px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: transform 0.15s, box-shadow 0.15s, opacity 0.15s;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.35);
+    pointer-events: none;
+}
+
+.fn-row:hover   .fn-circle { transform: scale(1.1); }
+.fn-row:active  .fn-circle { transform: scale(0.93); opacity: 0.8; }
+
+.fn-insert {
+    background: #3a7bd5;
+    color: #fff;
+}
+
+.fn-update {
+    background: #b89c5f;
+    color: #1a1d23;
+}
+
+/* ── label ───────────────────────────────────────────────────────────────── */
+.fn-label {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.fn-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #e0e0e6;
+    letter-spacing: 0.5px;
+}
+
+.fn-desc {
+    font-size: 11px;
+    color: #6a7077;
+}

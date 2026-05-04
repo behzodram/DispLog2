@@ -1,0 +1,101 @@
+{
+    "scanned": true,
+    "map": {
+        "anor.script.js": [
+            "pages/Sys/anor.script.js"
+        ],
+        "anor.uz.js": [
+            "pages/Sys/anor.uz.js"
+        ],
+        "anor.style.js": [
+            "pages/Sys/anor.style.js"
+        ],
+        "app.js": [
+            "pages/Sys/app.js"
+        ],
+        "bar.js": [
+            "pages/x_body/bar.js"
+        ],
+        "serviceRunner.js": [
+            "pages/x_service/serviceRunner.js"
+        ],
+        "Termux-3.js": [
+            "pages/x_service/Termux-3.js"
+        ],
+        "table.js": [
+            "pages/x_table/table.js"
+        ],
+        "Trigger-Data.js": [
+            "pages/y_func-update/x_update/Trigger-Data.js"
+        ],
+        "then.js": [
+            "pages/y_func-update/x_update/then.js"
+        ],
+        "func_sign.js": [
+            "pages/y_func-update/x_functions/func_sign.js"
+        ],
+        "maxsus-insert.js": [
+            "pages/y_func-update/x_functions/special/maxsus-insert.js"
+        ],
+        "TogetherQuery.js": [
+            "pages/y_func-update/x_functions/special/TogetherQuery.js"
+        ],
+        "functions.js": [
+            "pages/y_func-update/x_functions/functions.js"
+        ],
+        "joinME.js": [
+            "pages/y_func-update/x_functions/telegram/joinME.js"
+        ],
+        "universal_exec.js": [
+            "pages/y_func-update/x_functions/universal_exec.js"
+        ],
+        "policyPhone.js": [
+            "pages/y_func-update/POLICY/policyPhone.js"
+        ],
+        "pages.js": [
+            "pages/y_func-update/main/pages.js"
+        ],
+        "testINSERT.js": [
+            "pages/y_func-update/main/testINSERT.js"
+        ],
+        "CacheLoad.js": [
+            "pages/y_panel-preset/x_bottom-panel/CacheLoad.js"
+        ],
+        "get_clip_set_args.js": [
+            "pages/y_panel-preset/x_preset_4function/get_clip_set_args.js"
+        ],
+        "SQL_Callback.js": [
+            "pages/CallBack/SQL_Callback.js"
+        ],
+        "cacheLoad_cache.js": [
+            "Next_Work/codeCache/cacheLoad_cache.js"
+        ],
+        "first.js": [
+            "Next_Work/Ex-code/first.js"
+        ],
+        "third.js": [
+            "Next_Work/Ex-code/third.js"
+        ],
+        "second.js": [
+            "Next_Work/Ex-code/second.js"
+        ],
+        "cacheMap.js": [
+            "Next_Work/Ex-code/cacheMap.js"
+        ],
+        "pretty_norm.js": [
+            "main/PH-LD-SQL/pretty_norm.js"
+        ],
+        "LoadSQL.js": [
+            "main/PH-LD-SQL/LoadSQL.js"
+        ],
+        "SavedContact.js": [
+            "main/PH-LD-SQL/SavedContact.js"
+        ],
+        "Service.js": [
+            "Service.js"
+        ],
+        "DispLog2.js": [
+            "DispLog2.js"
+        ]
+    }
+}

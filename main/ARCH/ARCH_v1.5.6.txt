@@ -1,0 +1,104 @@
+ tree
+.
+├── DispLog.js
+├── GitTime.txt
+├── GitVersion.txt
+├── Img
+│   ├── DatabaseSQL.png
+│   ├── DispLog.png
+│   ├── DispLog1.png
+│   ├── DispLog2.png
+│   └── DispLog3.png
+├── Next_Work
+│   ├── RedContact.png
+│   ├── chatGPT.txt
+│   └── errors
+│       ├── allTables.jpg
+│       ├── bar open.jpg
+│       └── photo.jpg
+├── README.md
+├── Service.js
+├── anor_cache.json
+├── anor_script_cache.json
+├── anor_style_cache.json
+├── main
+│   ├── ARCH
+│   │   ├── ARCH_v1.0.8.txt
+│   │   ├── ARCH_v1.2.6.txt
+│   │   ├── ARCH_v1.4.5.txt
+│   │   └── ARCH_v1.5.6.txt
+│   ├── Contact
+│   │   └── SavedContact.js
+│   ├── LOAD_SQL
+│   │   ├── LoadSQL.js
+│   │   └── LoadTable.js
+│   ├── SQL
+│   │   ├── Queries.sql
+│   │   ├── main.sql
+│   │   ├── then.sql
+│   │   └── trigger.sql
+│   └── phone
+│       └── pretty_norm.js
+├── pages
+│   ├── CallBack
+│   │   └── SQL_Callback.js
+│   ├── Sys
+│   │   ├── anor.script.js
+│   │   ├── anor.style.js
+│   │   ├── anor.uz.js
+│   │   ├── anor.uz.md
+│   │   ├── anor.uz.usage
+│   │   └── app.js
+│   ├── images
+│   │   ├── CarType3.png
+│   │   ├── Role3.png
+│   │   ├── Role34.png
+│   │   ├── action3.png
+│   │   ├── contact3.png
+│   │   ├── copy.png
+│   │   ├── key-icon.png
+│   │   ├── location3.png
+│   │   ├── lock-icon.png
+│   │   ├── modify.png
+│   │   ├── paste.png
+│   │   ├── table.png
+│   │   └── timepicker3.png
+│   ├── index.html
+│   ├── x_body
+│   │   ├── bar.css
+│   │   ├── bar.js
+│   │   └── body.html
+│   ├── x_table
+│   │   ├── table.css
+│   │   ├── table.html
+│   │   └── table.js
+│   ├── y_func-update
+│   │   ├── POLICY
+│   │   │   ├── policy.md
+│   │   │   └── policyPhone.js
+│   │   ├── func-update.html
+│   │   ├── main
+│   │   │   ├── pages.js
+│   │   │   ├── testINSERT.js
+│   │   │   └── then.js
+│   │   ├── x_functions
+│   │   │   ├── func_sign.js
+│   │   │   ├── functions.html
+│   │   │   └── universal_exec.js
+│   │   └── x_update
+│   │       └── update-btn.html
+│   └── y_panel-preset
+│       ├── panel-preset.html
+│       ├── x_bottom-panel
+│       │   ├── CacheLoad.js
+│       │   ├── panel.css
+│       │   ├── panel.html
+│       │   └── temp.css
+│       └── x_preset_4function
+│           ├── get_clip_set_args.js
+│           ├── preset.css
+│           └── preset.html
+├── version.txt
+└── ~package.json
+
+24 directories, 77 files

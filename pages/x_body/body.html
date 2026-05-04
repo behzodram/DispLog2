@@ -1,0 +1,62 @@
+<!-- Load CSS and JS -->
+<!-- <link rel="stylesheet" href="x_body/bar.css"> -->
+<anor-style src="bar.css"></anor-style>
+
+<!-- Action Bar Toggle Button -->
+<button class="bar-toggle-btn" id="barToggleBtn" title="Menu">☰</button>
+
+<!-- Action Bar (Hidden by default) -->
+<div class="action-bar" id="actionBar" style="display:none;">
+    <div class="bar-items-container">
+        <!-- Kalit (Key) Item - Combines func-update and panel-preset -->
+        <button class="bar-item" data-action="kalit" data-category="kalit">
+            <img class="bar-item-icon" src="./images/key-icon.png" alt="Key Icon">
+            <span class="bar-item-label">Kalit</span>
+        </button>
+        
+        <!-- Tables Item -->
+        <button class="bar-item" data-action="table" data-category="table">
+            <img class="bar-item-icon" src="./images/table.png" alt="Table Icon">
+            <span class="bar-item-label">Jadval</span>
+        </button>
+
+        <!-- Service Item -->
+        <button class="bar-item" data-action="service" data-category="service">
+            <img class="bar-item-icon" src="./images/Termux-Call.png" alt="Service Icon">
+            <span class="bar-item-label">Xizmat</span>
+        </button>
+    </div>
+</div>
+
+<!-- Content Container -->
+<div class="content-container">
+    <!-- Kalit (Key) Content - Combined func-update and panel-preset -->
+    <div class="content-item" id="kalit" style="display:none;">
+        <anor-uz src="func-update.html"></anor-uz>
+        <anor-uz src="panel-preset.html"></anor-uz>
+    </div>
+
+    <!-- Tables Master Panel -->
+    <div class="content-item" id="table" style="display:none;">
+        <anor-uz src="table.html"></anor-uz>
+    </div>
+
+    <!-- Service Panel -->
+    <div class="content-item" id="service" style="display:none;">
+        <anor-uz src="service.html"></anor-uz>
+    </div>
+</div>
+
+<!-- Toast notification -->
+<div id="toast"></div>
+
+<anor-script src="bar.js"></anor-script>
+
+<!-- Auto-start Service on app launch -->
+<script>
+    if (typeof StartService === 'function') {
+        setTimeout(() => {
+            StartService();
+        }, 500);
+    }
+</script>

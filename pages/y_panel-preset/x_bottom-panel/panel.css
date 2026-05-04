@@ -1,0 +1,770 @@
+/* style.css — pages UI (Dark Mode) */
+
+:root {
+    --bg-primary:    #1a1d23;
+    --bg-secondary:  #242833;
+    --bg-tertiary:   #2d3139;
+    --text-primary:  #e0e0e6;
+    --text-secondary:#a8adb5;
+    --border-color:  #3a3f4c;
+    --focus-color:   #5a8fbf;
+
+    --btn-primary:  #5a8fbf;
+    --btn-success:  #4a9b6f;
+    --btn-warning:  #b89c5f;
+    --btn-danger:   #a85252;
+
+    --hover-opacity:  0.9;
+    --active-opacity: 0.75;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    padding: 16px;
+    padding-bottom: 110px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* ---------- Section ---------- */
+.section {
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    border: 1px solid var(--border-color);
+    transition: box-shadow 0.3s, background-color 0.3s;
+}
+.section:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.5); }
+.section h3 {
+    font-size: 13px; font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase; letter-spacing: 0.8px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 8px;
+}
+
+/* ---------- Input ---------- */
+input[type="text"], input[type="tel"] {
+    display: block; width: 100%;
+    padding: 10px 12px; margin-bottom: 10px;
+    font-size: 15px;
+    border: 1.5px solid var(--border-color);
+    border-radius: 8px;
+    background: var(--bg-tertiary); color: var(--text-primary);
+    outline: none;
+    transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+}
+input[type="text"]:hover, input[type="tel"]:hover { border-color: #4a6f9f; background: #343a45; }
+input[type="text"]:focus, input[type="tel"]:focus {
+    border-color: var(--focus-color); background: #343a45;
+    box-shadow: 0 0 0 3px rgba(90,143,191,0.15);
+}
+input::placeholder { color: #6a7077; }
+
+/* ---------- Global Button ---------- */
+button {
+    display: block; width: 100%;
+    padding: 11px; font-size: 15px; font-weight: 600;
+    border: none; border-radius: 8px; cursor: pointer;
+    transition: background 0.2s, opacity 0.2s, transform 0.1s, box-shadow 0.2s;
+}
+button:hover  { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.4); }
+button:active { opacity: var(--active-opacity); transform: translateY(0); }
+
+.btn-primary { background: var(--btn-primary); color: #fff; }
+.btn-primary:hover { background: #6ba0cf; }
+.btn-success { background: var(--btn-success); color: #fff; }
+.btn-success:hover { background: #5ab07f; }
+.btn-warning { background: var(--btn-warning); color: #e0e0e6; }
+.btn-warning:hover { background: #c9ad75; }
+.btn-danger  { background: var(--btn-danger);  color: #fff; }
+.btn-danger:hover  { background: #b86262; }
+
+/* ══════════════════════════════════════════════════════════════════════════════
+   PANEL OVERLAY — Dims background (70% transparent) when panel is active
+   ══════════════════════════════════════════════════════════════════════════════ */
+
+#panel-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: none;
+    z-index: 999;
+    pointer-events: auto;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════
+   BOTTOM PANEL COLLAPSED STATE — (Deprecated, keeping for backwards compatibility)
+   ══════════════════════════════════════════════════════════════════════════════ */
+
+#bottom-panel.panel-collapsed {
+    position: fixed;
+    bottom: 10px;
+    left: auto;
+    right: 10px;
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+#bottom-panel-toggle {
+    transition: transform 0.3s ease, opacity 0.3s ease !important;
+}
+
+#bottom-panel-toggle.collapsed {
+    transform: scale(1.1);
+    opacity: 0.8;
+}
+
+#bottom-panel.panel-collapsed .row-icon {
+    width: 36px;
+    height: 36px;
+    opacity: 0.6;
+    transition: opacity 0.3s ease, transform 0.2s ease;
+}
+
+#bottom-panel.panel-collapsed .row-icon:hover {
+    opacity: 0.9;
+    transform: scale(1.08);
+}
+
+#bottom-panel.panel-collapsed #contact3-btns,
+#bottom-panel.panel-collapsed #loc3-btns,
+#bottom-panel.panel-collapsed #car3-btns,
+#bottom-panel.panel-collapsed #role3-btns,
+#bottom-panel.panel-collapsed #time3-btns {
+    display: none;
+}
+
+/* ================================================================
+   BOTTOM PANEL  — Vertical layout: header + icons row + content rows
+   Designed like preset panel with gradient and styling
+   ================================================================ */
+#bottom-panel,
+.bottom-panel-container {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 12px 16px;
+    z-index: 1000;
+    overflow: hidden;
+    background: linear-gradient(135deg, #1a1f2e 0%, #242833 100%);
+    border-top: 2px solid #3a3f4c;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Panel header with title and buttons */
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+
+.panel-header-btns {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.panel-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #e0e0e6;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.panel-clear-btn {
+    padding: 6px 12px;
+    background-color: #a85252;
+    color: #ffffff;
+    border: 1px solid #c47070;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    outline: none;
+    white-space: nowrap;
+}
+
+.panel-clear-btn:hover {
+    background-color: #c47070;
+    transform: scale(1.05);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.panel-clear-btn:active {
+    transform: scale(0.95);
+}
+
+.panel-hide-btn {
+    padding: 6px 10px;
+    background-color: #3a4554;
+    color: #e0e0e6;
+    border: 1px solid #4a5566;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    outline: none;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.panel-hide-btn:hover {
+    background-color: #4a5566;
+    color: #ffffff;
+    transform: scale(1.05);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.panel-hide-btn:active {
+    transform: scale(0.95);
+}
+
+/* Panel toggle button — for showing/hiding the entire panel */
+.panel-toggle-btn {
+    padding: 6px 10px;
+    background-color: #4a5d7f;
+    color: #e0e0e6;
+    border: 1px solid #5a6d8f;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    outline: none;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.panel-toggle-btn:hover {
+    background-color: #5a6d8f;
+    color: #ffffff;
+    transform: scale(1.05);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.panel-toggle-btn:active {
+    transform: scale(0.95);
+}
+
+/* Show panel button — appears when panel is hidden (compact/minimal size) */
+.panel-show-btn {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    z-index: 999;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    background-color: #4a5d7f;
+    color: #e0e0e6;
+    border: 1px solid #5a6d8f;
+    border-radius: 6px;
+    font-size: 20px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    outline: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.panel-show-btn:hover {
+    background-color: #5a6d8f;
+    transform: scale(1.15);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.panel-show-btn:active {
+    transform: scale(0.9);
+}
+
+/* Hidden state for the entire panel */
+#bottom-panel.panel-hidden {
+    display: none !important;
+    visibility: hidden;
+    opacity: 0;
+}
+
+/* Icons row — horizontal flexbox */
+#icons-row {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+/* Row content — 3-column grid, hidden by default */
+.row-content {
+    display: none;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+
+.row-content.active {
+    display: grid;
+}
+
+/* Input rows — 70% input / 30% accept button, side by side */
+#name-btns,
+#matni-btns,
+#weight-btns,
+#tuman-btns,
+#type17-btns {
+    grid-template-columns: 70fr 30fr !important;
+    gap: 8px;
+    align-items: center;
+}
+
+#name-btns input,
+#matni-btns input,
+#weight-btns input,
+#tuman-btns input,
+#type17-btns input {
+    grid-column: 1;
+    width: 100%;
+    margin-bottom: 0;
+}
+
+#name-btns button,
+#matni-btns button,
+#weight-btns button,
+#tuman-btns button,
+#type17-btns button {
+    grid-column: 2;
+    width: 100%;
+    height: 100%;
+    min-height: 36px;
+}
+
+/* ── Toggle ikonlari ── */
+.row-icon {
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+    border-radius: 10px;
+    cursor: pointer;
+    position: relative;
+    z-index: 2;
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,.5));
+    transition: transform .15s, filter .22s, opacity .2s;
+    user-select: none;
+    -webkit-user-select: none;
+    opacity: 0.6;
+}
+.row-icon:hover { opacity: 0.85; transform: scale(1.08); }
+.row-icon:active { transform: scale(.88); }
+.row-icon.active { opacity: 1; filter: drop-shadow(0 2px 6px rgba(0,0,0,.5)) brightness(1.2); }
+.row-icon.panel-collapsed {
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,.5)) brightness(.55);
+}
+
+/* ── contact3 buttonlari (yashil / sariq / qizil) ── */
+.c3-btn {
+    height: 36px;
+    padding: 0;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    box-shadow: 0 2px 6px rgba(0,0,0,.35);
+}
+.c3-btn:hover  { filter: brightness(1.15); transform: translateY(-1px); }
+.c3-btn:active { filter: brightness(.85); }
+
+.c3-green  { background: var(--btn-success); color: #fff; }
+.c3-yellow { background: var(--btn-warning); color: #fff; }
+.c3-red    { background: var(--btn-danger);  color: #fff; }
+
+/* ── contact3 input row (green button number + SQL lookup) ── */
+.contact3-input-row {
+    grid-column: 1 / -1;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+.contact3-input-row .name-input {
+    flex: 1;
+    margin-bottom: 0;
+}
+.call-sql-btn {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    cursor: pointer;
+    border-radius: 8px;
+    object-fit: contain;
+    opacity: 0.85;
+    transition: opacity 0.2s, transform 0.15s;
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,.45));
+}
+.call-sql-btn:hover  { opacity: 1; transform: scale(1.08); }
+.call-sql-btn:active { opacity: 0.7; transform: scale(0.9); }
+
+/* ── location3 buttonlari ── */
+.loc3-btn {
+    height: 36px;
+    padding: 0;
+    font-size: 14px;
+    font-weight: 600;
+    background: var(--btn-primary);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    box-shadow: 0 2px 6px rgba(0,0,0,.35);
+}
+.loc3-btn:hover  { background: #6ba0cf; transform: translateY(-1px); }
+.loc3-btn:active { opacity: .75; transform: none; }
+
+/* ── car3 buttonlari (solingan rang) ── */
+.car3-btn {
+    height: 36px;
+    padding: 0;
+    font-size: 14px;
+    font-weight: 600;
+    background: #6c757d;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    box-shadow: 0 2px 6px rgba(0,0,0,.35);
+}
+.car3-btn:hover  { background: #7a8390; transform: translateY(-1px); }
+.car3-btn:active { opacity: .75; transform: none; }
+
+/* ── role3 buttonlari ── */
+.role3-btn {
+    height: 36px;
+    padding: 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    box-shadow: 0 2px 6px rgba(0,0,0,.35);
+    transition: background 0.2s, transform 0.1s, opacity 0.2s;
+}
+.role3-btn:hover  { transform: translateY(-1px); }
+.role3-btn:active { opacity: .75; transform: none; }
+
+.role3-dispach { --btn-danger: #a8525299; background: var(--btn-danger); }
+.role3-dispach:hover { --btn-danger: #d54a4a99; background: var(--btn-danger); }
+
+.role3-driver { background: #4a4f5c99; }
+.role3-driver:hover { background: #4a4f5c99; }
+
+.role3-shipper { background: #3c2c1c99; }
+.role3-shipper:hover { background:  #3c2c1c99;}
+
+/* ── name input va button ── */
+.name-input {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 15px;
+    border: 1.5px solid var(--border-color);
+    border-radius: 8px;
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    outline: none;
+    transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+    box-sizing: border-box;
+}
+.name-input:hover {
+    border-color: #4a6f9f;
+    background: #343a45;
+}
+.name-input:focus {
+    border-color: var(--focus-color);
+    background: #343a45;
+    box-shadow: 0 0 0 3px rgba(90, 143, 191, 0.15);
+}
+.name-input::placeholder {
+    color: #6a7077;
+}
+
+.name-accept-btn {
+    height: 36px;
+    padding: 0;
+    font-size: 14px;
+    font-weight: 600;
+    background: var(--btn-success);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    box-shadow: 0 2px 6px rgba(0,0,0,.35);
+    transition: background 0.2s, transform 0.1s;
+}
+.name-accept-btn:hover {
+    background: #5ab07f;
+    transform: translateY(-1px);
+}
+.name-accept-btn:active {
+    opacity: .75;
+    transform: none;
+}
+
+/* ── timepicker buttonlari ── */
+.t3-btn {
+    height: 36px;
+    padding: 0;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    box-shadow: 0 2px 6px rgba(0,0,0,.35);
+}
+
+.t3-green  { background: var(--btn-success); color: #fff; }
+.t3-yellow { background: var(--btn-warning); color: #fff; }
+.t3-red    { background: var(--btn-danger);  color: #fff; }
+
+.t3-btn:hover  { filter: brightness(1.15); transform: translateY(-1px); }
+.t3-btn:active { filter: brightness(.85); }
+
+/* ── Animatsiya keyframe-lari ──
+   btnSlideOut : mavjud holatdan chapga/yo'q holga ketadi
+   btnSlideIn  : chap/yo'q holatdan mavjud holatga keladi
+   Ikkalasi ham "both" fill mode bilan ishlatiladi.
+   translateX(-300%) — o'z kengligi × 3, icon ortiga yetib boradi.
+   ──────────────────────────────────────────────────────────────── */
+@keyframes btnSlideOut {
+    to {
+        transform: translateX(-300%);
+        opacity: 0;
+    }
+}
+
+@keyframes btnSlideIn {
+    from {
+        transform: translateX(-300%);
+        opacity: 0;
+    }
+}
+
+/* ================================================================
+   TOAST
+   ================================================================ */
+#toast {
+    display: none;
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    padding: 12px 24px;
+    border-radius: 20px;
+    font-size: 13px;
+    z-index: 1500;
+    white-space: nowrap;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+    border: 1px solid var(--border-color);
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateX(-50%) translateY(10px); }
+    to   { opacity: 1; transform: translateX(-50%) translateY(0);    }
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar       { width: 8px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #4a4f5c; }
+
+/* ── #main ── */
+#main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+}
+h1 { color: #b0b8c8; font-size: 28px; text-align: center; margin-bottom: 8px; }
+p  { font-size: 16px; text-align: center; color: #555; margin: 0 20px 10px; }
+
+/* ── load-cash row ─────────────────────────────────────────────────────────── */
+#load-cash-btns {
+    grid-template-columns: 1fr 44px 44px 44px 44px !important;
+    gap: 6px;
+    align-items: center;
+}
+
+#load-cash-btns #load-cash-input {
+    grid-column: 1;
+    width: 100%;
+    margin-bottom: 0;
+}
+
+.load-cash-tonna-input {
+    width: 100%;
+    margin-bottom: 0 !important;
+    padding: 8px 4px !important;
+    text-align: center;
+    font-size: 13px !important;
+}
+
+#load-cash-btns .load-cash-clear-btn,
+#load-cash-btns .load-cash-000-btn,
+#load-cash-btns .name-accept-btn {
+    width: 100%;
+    height: 36px;
+    min-height: 36px;
+    padding: 0;
+    font-size: 13px;
+}
+
+.load-cash-clear-btn {
+    height: 36px;
+    padding: 0;
+    font-size: 14px;
+    font-weight: 700;
+    background: #5a3a3a;
+    color: #e0a0a0;
+    border: 1px solid #7a4a4a;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0,0,0,.35);
+    transition: background 0.2s, transform 0.1s;
+}
+.load-cash-clear-btn:hover {
+    background: #7a4a4a;
+    transform: translateY(-1px);
+}
+.load-cash-clear-btn:active {
+    opacity: .75;
+    transform: none;
+}
+
+.load-cash-000-btn {
+    height: 36px;
+    padding: 0;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    background: #4a5d7f;
+    color: #e0e0e6;
+    border: 1px solid #5a6d8f;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0,0,0,.35);
+    transition: background 0.2s, transform 0.1s;
+}
+.load-cash-000-btn:hover {
+    background: #5a6d8f;
+    transform: translateY(-1px);
+}
+.load-cash-000-btn:active {
+    opacity: .75;
+    transform: none;
+}
+
+/* ── closed toggle ────────────────────────────────────────────────────────────────────── */
+.closed-toggle {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: #2d3139;
+    border: 1.5px solid #3a3f4c;
+    border-radius: 20px;
+    padding: 3px 7px;
+    cursor: pointer;
+    height: 38px;
+    min-width: 78px;
+    user-select: none;
+    -webkit-user-select: none;
+    transition: border-color 0.25s, background 0.25s;
+    filter: drop-shadow(0 2px 5px rgba(0,0,0,.45));
+}
+.closed-toggle:active { transform: scale(.93); }
+
+.ct-label {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.4px;
+    white-space: nowrap;
+    overflow: hidden;
+    transition: opacity 0.25s, max-width 0.25s, color 0.25s;
+}
+
+.ct-thumb {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background 0.25s;
+}
+
+.ct-icon {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+}
+
+/* OPEN: [thumb][OPEN]  — CLOSED hidden */
+.closed-toggle[data-state="open"] { border-color: #3a6a4a; }
+.closed-toggle[data-state="open"] .ct-thumb  { order: 1; background: #3a6a4a; }
+.closed-toggle[data-state="open"] .ct-open   { order: 2; opacity: 1; max-width: 60px; color: #5ab07f; }
+.closed-toggle[data-state="open"] .ct-closed { order: 3; opacity: 0; max-width: 0; color: #a85252; }
+
+/* CLOSED: [CLOSED][thumb]  — OPEN hidden */
+.closed-toggle[data-state="closed"] { border-color: #6a3a3a; }
+.closed-toggle[data-state="closed"] .ct-closed { order: 1; opacity: 1; max-width: 60px; color: #c05050; }
+.closed-toggle[data-state="closed"] .ct-thumb  { order: 2; background: #6a3a3a; }
+.closed-toggle[data-state="closed"] .ct-open   { order: 3; opacity: 0; max-width: 0; color: #5ab07f; }

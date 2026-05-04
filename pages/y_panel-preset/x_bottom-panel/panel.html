@@ -1,0 +1,111 @@
+<!-- <link rel="stylesheet" href="y_panel-preset/x_bottom-panel/panel.css"> -->
+<anor-style src="panel.css"></anor-style>
+<!-- Show Panel Button (Hidden by default, shown when panel is collapsed) -->
+<button id="panel-show-btn" class="panel-show-btn" onclick="togglePanelVisibility()" title="Panelni ko'rsatish" style="display: none;">📋</button>
+
+<div id="bottom-panel" class="bottom-panel-container">
+    <!-- Panel header with title and buttons -->
+    <div class="panel-header">
+        <span class="panel-title">📋 Panel</span>
+        <div class="panel-header-btns">
+            <button class="panel-clear-btn" onclick="clearAllPresets()" title="Presetlarni tozalash">🗑️</button>
+            <button class="panel-hide-btn" onclick="hidePresetPanel()" title="Preset panelni yopish">✕</button>
+            <button class="panel-toggle-btn" onclick="togglePanelVisibility()" id="panel-toggle-btn" title="Panelni yashirish/ko'rsatish">⬇️</button>
+        </div>
+    </div>
+
+    <!-- bu html qismi functions.js orqali dinamik qilindi -->
+    <!-- Icons row (horizontal) -->
+    <div id="icons-row">
+        <img src="./images/pp_Role3.png" class="row-icon" id="role3-icon" onclick="toggleRole3()">
+        <img src="./images/pp_contact3.png" class="row-icon" id="contact3-icon" onclick="toggleContact3()">
+        <img src="./images/pp_location3.png" class="row-icon" id="location3-icon" onclick="toggleLocation3()">
+        <img src="./images/pp_CarType3.png" class="row-icon" id="car3-icon" onclick="toggleCar3()">
+        <img src="./images/pp_name.png" class="row-icon" id="name-icon" onclick="toggleName()">
+        <img src="./images/pp_matni.png" class="row-icon" id="matni-icon" onclick="toggleMatni()">
+        <img src="./images/pp_weight.png" class="row-icon" id="weight-icon" onclick="toggleWeight()">
+        <img src="./images/pp_tuman-loc.png" class="row-icon" id="tuman-icon" onclick="toggleTumanLoc()">
+        <img src="./images/pp_type17.png" class="row-icon" id="type17-icon" onclick="toggleType17()">
+        <img src="./images/pp_load-cash.png" class="row-icon" id="load-cash-icon" onclick="toggleLoadCash()">
+        <div class="closed-toggle" id="closed-toggle" data-state="open" onclick="toggleClosed()" title="Yuk holati">
+            <span class="ct-label ct-closed">CLOSED</span>
+            <div class="ct-thumb"><img src="./images/pp_closed.png" class="ct-icon"></div>
+            <span class="ct-label ct-open">OPEN</span>
+        </div>
+    </div>
+
+    <!-- Row 1: Role buttons -->
+    <div id="role3-btns" class="row-content">
+        <button class="role3-btn role3-dispach" onclick="GetRole('DISPACH')">DISPACH</button>
+        <button class="role3-btn role3-driver" onclick="GetRole('DRIVER')">DRIVER</button>
+        <button class="role3-btn role3-shipper" onclick="GetRole('SHIPPER')">SHIPPER</button>
+    </div>
+
+    <!-- Row 2: Contact buttons -->
+    <div id="contact3-btns" class="row-content">
+        <!-- Contact3 phone input row (green button number, editable + SQL lookup) -->
+        <div class="contact3-input-row">
+            <input type="tel" inputmode="numeric" id="contact3-input" class="name-input" placeholder="Raqam..." />
+            <img src="./images/Call_SQL.png" class="call-sql-btn" onclick="submitContact3Phone()" title="SQL orqali raqamni to'ldirish" />
+        </div>
+        <button class="c3-btn c3-green" id="c3-btn-0" onclick="copyPhone(0)">----</button>
+        <button class="c3-btn c3-yellow" id="c3-btn-1" onclick="copyPhone(1)">----</button>
+        <button class="c3-btn c3-red" id="c3-btn-2" onclick="copyPhone(2)">----</button>
+        
+    </div>
+
+    <!-- Row 3: Location buttons -->
+    <div id="loc3-btns" class="row-content">
+        <button class="loc3-btn" onclick="ShowViloyat('FABJ')">FABJ</button>
+        <button class="loc3-btn" onclick="ShowViloyat('XoQoN')">XoQoN</button>
+        <button class="loc3-btn" onclick="ShowViloyat('SuT')">SuT</button>
+    </div>
+
+    <!-- Row 4: Car buttons -->
+    <div id="car3-btns" class="row-content">
+        <button class="car3-btn" onclick="ShowCarType('FURA')">FURA</button>
+        <button class="car3-btn" onclick="ShowCarType('ISUZU')">ISUZU</button>
+        <button class="car3-btn" onclick="ShowCarType('BOSHQA')">BOSHQA</button>
+    </div>
+
+    <!-- Row 5: Name input -->
+    <div id="name-btns" class="row-content">
+        <input type="text" id="name-input" class="name-input" placeholder="Ism kiriting..." onkeypress="if(event.key==='Enter') submitName()" />
+        <button class="name-accept-btn" onclick="submitName()">✓ ACCEPT</button>
+    </div>
+
+    <!-- Row 6: Matni input -->
+    <div id="matni-btns" class="row-content">
+        <input type="text" id="matni-input" class="name-input" placeholder="Matn kiriting..." onkeypress="if(event.key==='Enter') submitMatni()" />
+        <button class="name-accept-btn" onclick="submitMatni()">✓ ACCEPT</button>
+    </div>
+
+    <!-- Row 7: Weight input -->
+    <div id="weight-btns" class="row-content">
+        <input type="number" inputmode="numeric" id="weight-input" class="name-input" placeholder="Vazn kiriting..." onkeypress="if(event.key==='Enter') submitWeight()" />
+        <button class="name-accept-btn" onclick="submitWeight()">✓ ACCEPT</button>
+    </div>
+
+    <!-- Row 8: Tuman input (location-like: stays open, 1-qayerdan 2-qayerga) -->
+    <div id="tuman-btns" class="row-content">
+        <input type="text" id="tuman-input" class="name-input" placeholder="Tuman kiriting..." onkeypress="if(event.key==='Enter') submitTumanLoc()" />
+        <button class="name-accept-btn" onclick="submitTumanLoc()">✓ ADD</button>
+    </div>
+
+    <!-- Row 9: Type17 input -->
+    <div id="type17-btns" class="row-content">
+        <input type="text" id="type17-input" class="name-input" placeholder="Yuk turini kiriting..." onkeypress="if(event.key==='Enter') submitType17()" />
+        <button class="name-accept-btn" onclick="submitType17()">✓ ACCEPT</button>
+    </div>
+
+    <!-- Row 10: Load Cash input -->
+    <div id="load-cash-btns" class="row-content">
+        <input type="text" inputmode="numeric" id="load-cash-input" class="name-input" placeholder="Summa..." oninput="formatLoadCash(this)" onkeypress="if(event.key==='Enter') submitLoadCash()" />
+        <input type="text" inputmode="decimal" id="load-cash-tonna" class="name-input load-cash-tonna-input" placeholder="T" />
+        <button class="load-cash-clear-btn" onclick="clearLoadCashTonna()" title="Tonnani tozalash">✕</button>
+        <button class="load-cash-000-btn" onclick="appendThreeZeros()">000</button>
+        <button class="name-accept-btn" onclick="submitLoadCash()">add</button>
+    </div>
+</div>
+
+<anor-script src="CacheLoad.js"></anor-script>

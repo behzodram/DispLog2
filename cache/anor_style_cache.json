@@ -1,0 +1,29 @@
+{
+    "scanned": true,
+    "map": {
+        "bar.css": [
+            "pages/x_body/bar.css"
+        ],
+        "service.css": [
+            "pages/x_service/service.css"
+        ],
+        "table.css": [
+            "pages/x_table/table.css"
+        ],
+        "temp.css": [
+            "pages/y_func-update/x_update/temp.css"
+        ],
+        "functions.css": [
+            "pages/y_func-update/x_functions/functions.css"
+        ],
+        "joinME.css": [
+            "pages/y_func-update/x_functions/telegram/joinME.css"
+        ],
+        "panel.css": [
+            "pages/y_panel-preset/x_bottom-panel/panel.css"
+        ],
+        "preset.css": [
+            "pages/y_panel-preset/x_preset_4function/preset.css"
+        ]
+    }
+}

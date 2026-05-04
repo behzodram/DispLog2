@@ -1,0 +1,54 @@
+.
+├── ARCH
+│   ├── ARCH_v1.0.8.txt
+│   └── ARCH_v1.2.6.txt
+├── DCIM_Perm
+│   └── Permission.js
+├── GitTime.txt
+├── GitVersion.txt
+├── Img
+│   ├── DatabaseSQL.png
+│   └── MaterialIcons-Regular.ttf
+├── Next_Work_temp
+│   ├── RedContact.png
+│   └── chatGPT.txt
+├── README.md
+├── Service.js
+├── pages
+│   ├── CacheLoad
+│   │   └── CacheLoad.js
+│   ├── FUNCTIONS
+│   │   ├── func_sign.js
+│   │   └── universal_exec.js
+│   ├── POLICY_SQL
+│   │   ├── policy.md
+│   │   └── policyPhone.js
+│   ├── PRESET_4FUNCTION
+│   │   ├── get_clip_set_args.js
+│   │   └── preset.css
+│   ├── SQL
+│   │   ├── main.sql
+│   │   ├── then.sql
+│   │   └── trigger.sql
+│   ├── SQL_callback
+│   │   └── SQL_Callback.js
+│   ├── SavedContact
+│   │   └── SavedContact.js
+│   ├── images
+│   │   ├── CarType3.png
+│   │   ├── Role3.png
+│   │   ├── Role34.png
+│   │   ├── action3.png
+│   │   ├── contact3.png
+│   │   ├── copy.png
+│   │   ├── location3.png
+│   │   ├── modify.png
+│   │   ├── paste.png
+│   │   └── timepicker3.png
+│   ├── index.html
+│   ├── pages.js
+│   ├── temp.css
+│   └── then.js
+└── version.txt
+
+14 directories, 38 files

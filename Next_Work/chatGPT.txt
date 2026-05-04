@@ -1,0 +1,10 @@
+1.
+    theme:
+        CS 1.6 sniper kodi
+    look for:
+        istak inliz tilida nima
+    result:
+        SQL da to'g'ri TRIGGER ishlatish
+
+2.
+    theme:

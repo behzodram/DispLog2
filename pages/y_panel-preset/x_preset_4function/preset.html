@@ -1,0 +1,51 @@
+<!-- <link rel="stylesheet" href="y_panel-preset/x_preset_4function/preset.css"> -->
+<anor-style src="preset.css"></anor-style>
+<!-- ══════════════════════════════════════════════════════════
+         PRESET PANEL — Top of screen
+         Preset argument combinations with clear button
+    ══════════════════════════════════════════════════════════ -->
+<!-- Preset panel: shows available source icons + preset buttons + clear button -->
+<div id="preset-panel" class="preset-panel-container">
+    <div class="preset-header">
+        <span class="preset-title">📋 Preset</span>
+        <div class="preset-header-btns">
+            <button class="preset-clear-btn" id="presetClearBtn" onclick="clearAllPresets()" title="Tozalash">🗑️</button>
+            <button class="preset-hide-btn" id="presetHideBtn" onclick="hidePresetPanel()" title="Yopish">✕</button>
+        </div>
+    </div>
+    
+    <!-- bu html qismi functions.js orqali dinamik qilindi -->
+    <!-- Icon selector grid (5 icons: name, role, contact, location, car) -->
+    <div id="paste-sources" class="paste-sources">
+        <img src="./images/pp_Role3.png" class="paste-source-icon" onclick="addSourceToPaste('role')" title="Rol">
+        <img src="./images/pp_contact3.png" class="paste-source-icon" onclick="addSourceToPaste('contact')" title="Raqam">
+        <img src="./images/pp_location3.png" class="paste-source-icon" onclick="addSourceToPaste('location')" title="Viloyat">
+        <img src="./images/pp_CarType3.png" class="paste-source-icon" onclick="addSourceToPaste('car')" title="Mashina">
+        <img src="./images/pp_name.png" class="paste-source-icon" onclick="addSourceToPaste('name')" title="Ism">
+        <img src="./images/pp_matni.png" class="paste-source-icon" onclick="addSourceToPaste('matni')" title="Matn">
+        <img src="./images/pp_weight.png" class="paste-source-icon" onclick="addSourceToPaste('weight')" title="Vazn">
+        <img src="./images/pp_tuman-loc.png" class="paste-source-icon" onclick="addSourceToPaste('tuman')" title="Tuman">
+        <img src="./images/pp_type17.png" class="paste-source-icon" onclick="addSourceToPaste('type17')" title="Type17">
+        <img src="./images/pp_load-cash.png" class="paste-source-icon" onclick="addSourceToPaste('load_cash')" title="Naqd">
+        <div class="closed-toggle" id="closed-toggle-preset" data-state="open" onclick="toggleClosed()" title="Yuk holati">
+            <span class="ct-label ct-closed">CLOSED</span>
+            <div class="ct-thumb"><img src="./images/pp_closed.png" class="ct-icon"></div>
+            <span class="ct-label ct-open">OPEN</span>
+        </div>
+    </div>
+
+    <!-- Paste presets container -->
+    <div id="paste-presets" class="paste-presets"></div>
+</div>
+
+<anor-script src="get_clip_set_args.js"></anor-script>
+
+<!-- Initialize preset panel event handlers -->
+<script>
+    // Wait for DOM to be ready and initialize
+    setTimeout(function() {
+        if (typeof initPresetPanel === 'function') {
+            initPresetPanel();
+        }
+    }, 100);
+</script>

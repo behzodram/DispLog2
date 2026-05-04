@@ -1,0 +1,45 @@
+.
+├── DCIM_Perm
+│   └── Permission.js
+├── DatabaseSQL.js
+├── GitTime.txt
+├── GitVersion.txt
+├── Img
+│   ├── DatabaseSQL.png
+│   └── MaterialIcons-Regular.ttf
+├── MyData
+├── MyData-journal
+├── Next_Work_temp
+│   ├── Next.md
+│   ├── RedContact.png
+│   ├── cantact3.png
+│   ├── crack.json
+│   └── deepseekSQL.md
+├── README.md
+├── Service.js
+├── main
+│   ├── LOAD_SQL
+│   │   ├── LoadSQL.js
+│   │   └── LoadTable.js
+│   ├── SQL
+│   │   └── Queries.sql
+│   └── do.sql
+├── pages
+│   ├── CacheLoad
+│   │   └── CacheLoad.js
+│   ├── SQL
+│   │   ├── main.sql
+│   │   └── then.sql
+│   ├── SQL_callback
+│   │   └── SQL_Callback.js
+│   ├── btncript.js
+│   ├── btnscript.js
+│   ├── btnstyle.css
+│   ├── index.html
+│   ├── pages.js
+│   ├── style.css
+│   └── then.js
+├── version.txt
+└── ~package.json
+
+11 directories, 32 files

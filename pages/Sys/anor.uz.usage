@@ -1,0 +1,20 @@
+<anor-style src="panel.css"></anor-style>
+
+<!-- some html tags here -->
+
+<anor-script src="CacheLoad.js"></anor-script>
+
+// you can call any css, js, html file with its name
+// just do not use the same name in different folder
+// otherwise there is an Error of Duplicate file detection.
+
+You can move any html/css and most js files to any folder 
+that is universal for usage from any directories just once.
+
+Anor WARNING
+Agar fayl duplikat message chiqsa,
+telefonda DroidScript/<proj-name>
+ni ichidagi fayllarni delete qilish
+kerak chunki DS-ide sync PC bilan
+Android papkani bir xil ekanini 
+taminlamaydi.

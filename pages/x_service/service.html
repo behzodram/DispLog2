@@ -1,0 +1,146 @@
+
+<anor-style src="service.css"></anor-style>
+
+    <!-- Service Logo Section -->
+    <div class="service-header">
+        <img src="./images/Termux-Call.png" alt="Service Logo" class="service-logo">
+        <div class="service-title">Skaner Xizmati</div>
+        
+        <!-- DispLog Icon (Separate container) -->
+        <div class="icon-container displog-icon-container">
+            <img src="./images/DispLog.png" alt="DispLog" class="center-icon">
+        </div>
+
+        <!-- Service Control Buttons -->
+        <div class="service-controls">
+            <button class="service-btn start-btn" onclick="StartService()" title="Xizmatni boshlamoq">
+                <img src="./images/start.png" alt="Start">
+            </button>
+            
+            <button class="service-btn stop-btn" onclick="StopService()" title="Xizmatni to'xtatmoq">
+                <img src="./images/stop.png" alt="Stop">
+            </button>
+        </div>
+    </div>
+
+    <!-- Termux Icon & Arrows (Centered) -->
+    <div class="termux-center-section">
+        <div class="icon-container termux-icon-container">
+            <img src="./images/Termux.png" alt="Termux" class="center-icon">
+        </div>
+    </div>
+
+    <!-- Termux Buttons Section -->
+    <div class="termux-buttons-section">
+        <!-- Button 1: Python Server Setup -->
+        <div class="termux-script-wrapper">
+            <button class="termux-action-btn" onclick="python_clip_2(); showTermuxInstruction('instruction-1')" title="Python server o'rnatish">
+                <img src="./images/FiLibRage.png" alt="Script">
+            </button>
+            <!-- Copy notification badge for script -->
+            <div class="copy-notification script-notification" id="scriptNotification" style="display: none;">
+                <img src="./images/copy.png" alt="Copy">
+            </div>
+        </div>
+        
+        <!-- Button 2: Install Scanner -->
+        <div class="termux-scanner-wrapper">
+            <button class="termux-action-btn" onclick="run_clip_6(); showTermuxInstruction('instruction-3')" title="Scanerni o'rnatish">
+                <img src="./images/scaner.png" alt="Command">
+            </button>
+            <!-- Scanner notification badge for bash -->
+            <div class="copy-notification" id="copyNotification" style="display: none;">
+                <img src="./images/copy.png" alt="Copy">
+            </div>
+        </div>
+    </div>
+
+    <!-- Termux Instruction Panel (Below buttons) -->
+    <div class="service-info-container" id="termuxInstructionPanel" style="display: none;">
+            <div class="service-info-content">
+                <!-- Instruction 1 -->
+                <div id="instruction-1" style="display: none;">
+                    <div class="info-text">
+                        Buferga nusxa ko'chirildi, edi termux ilovasini ochib, uni ustiga 3 sekund bosib turing va bufer matnni joylab, Enterni bosing. Sizdan xotira ruxsati berish oynasida ruxsat so'raydi va termux ilovasiga qaytib, 3-4 daqiqa kuting. Keyin esa ilovaga qaytib 
+                        <img src="./images/scaner.png" alt="Command" class="instruction-small-icon">
+                        tugma yo'riqnomasiga amal qiling.
+                    </div>
+                </div>
+                
+                <!-- Instruction 2 -->
+                <div id="instruction-2" style="display: none;">
+                    <div class="info-text">
+                        Agar ekranda "📁 ~/bin/dona" matni bo'lgan bildirish xabar ko'rinsa hammasi yaxshi.
+                        Orqa fonda skanerni ishga tushiruvchi bash buyruq fayli yaratildi. Endi termux ilovasida "CTRL+C" tugmasini 2 marta bosing. Jarayon faolsizlanishi va qandaydir "~$" kabi address yashil rangda ko'rinishi kerak. Keyin yana ilovaga qaytib 
+                        <img src="./images/scaner.png" alt="Scanner" class="instruction-small-icon">
+                        tugma yo'riqnomasiga amal qiling.
+                    </div>
+                </div>
+                
+                <!-- Instruction 3 -->
+                <div id="instruction-3" style="display: none;">
+                    <div class="info-text">
+                        Buferga nusxa ko'chirildi, edi termux ilovasini ochib, uni ustiga 3 sekund bosib turing va bufer matnni joylab, Enterni bosing.
+                    </div>
+                    <div class="info-divider"></div>
+                    <div class="info-success">
+                        ✅ <strong>Tabriklayman!</strong> Termux ilovasi tayyor endi Ilovaga qaytib skrin shot olish orqali telefon raqamni avtomatik ilovada kora olasiz
+                    </div>
+                    <div class="info-warning">
+                        <div class="info-text">
+                            ⚠️ <strong>Eslatma!</strong> Har safar ushbu ilovani qayta ishga tushurganizda, termuxda skaner jarayoni ishlayotganiga ishonch hosil qiling, chunki skaner jarayoni to'xtatilsa, skrin shotdan raqam ajratish xizmati to'liq ishlamay qoladi.
+                            <img src="./images/scaner.png" alt="Scanner" class="instruction-small-icon">
+                            tugma yo'riqnomasiga amal qiling.
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- General Info Toggle Button -->
+    <button class="service-info-toggle" onclick="toggleServiceInfo()" title="Hide/Show Info">
+        ℹ️
+    </button>
+
+    <!-- General Info Container (Hidden by default) -->
+    <div class="service-info-container" id="serviceInfoContainer" style="display: none;">
+        <div class="service-info-content">
+            <div class="info-text">
+                Bardagi xizmat logotipida bildirishnoma chiqsa, xizmat faollashgan hisoblanadi va toki toxtatish tugmasi bosilmaguncha qo'ng'iroq bo'lgan raqamni screen shotidan raqam ajratish xizmati faol turadi.
+            </div>
+            <div class="info-divider"></div>
+            <div class="info-requirements">
+                <strong>Xizmat ishlashi uchun:</strong>
+                <ul>
+                    <li>DCIM papkasiga ruxsat berilgan bo'lishi shart</li>
+                    <li>Xizmat Termuxda Skaner ishlab turgan paytigina to'liq ishlaydi</li>
+                </ul>
+            </div>
+            <div class="info-warning">
+                ⚠️ <strong>Ogohlantirish:</strong> O'chirib qo'yish tavsiya qilinmaydi.
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom-Left General Instructions Toggle -->
+    <button class="general-info-toggle" onclick="toggleGeneralInstruction()" title="General instructions">
+        <img src="./images/Termux-instruction.png" alt="Instructions">
+    </button>
+
+    <!-- Bottom-Left General Instructions Container -->
+    <div class="service-info-container" id="generalInfoContainer" style="display: none;">
+        <div class="service-info-content">
+            <div class="info-text">
+                Termux ilovasi o'rnatilgandan keyin avval
+                <img src="./images/FiLibRage.png" alt="Script" class="instruction-small-icon">
+                ni faqat 1 marta ishga tushuriladi. Bu xuddi ro'yxatdan o'tish kabi bir martalik jarayon. Keyin 
+                <img src="./images/scaner.png" alt="Scanner" class="instruction-small-icon">
+                tez tez foydalanib turiladi. Tugma yo'riqnomasiga amal qiling
+            </div>
+        </div>
+    </div>
+
+<anor-script src="serviceRunner.js"></anor-script>
+<anor-script src="Termux-3.js"></anor-script>

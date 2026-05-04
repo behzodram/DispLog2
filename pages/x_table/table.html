@@ -1,0 +1,39 @@
+<!-- <link rel="stylesheet" href="./x_table/table.css"> -->
+<anor-style src="table.css"></anor-style>
+
+<!-- Tables Master Panel -->
+<div id="tablesMasterPanel" class="tables-master-container">
+    <div class="tables-master-header">
+        <h2>[ sqlite_master ]</h2>
+    </div>
+    
+    <table class="tables-master-table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>TABLE</th>
+                <th>SEE</th>
+                <th>DEL</th>
+            </tr>
+        </thead>
+        <tbody id="tablesList">
+            <!-- Rows will be populated by JavaScript -->
+        </tbody>
+    </table>
+    
+    <div class="tables-master-footer">
+        <span id="tableCount">0 ta table</span>
+    </div>
+</div>
+
+<anor-script src="table.js"></anor-script>
+<script>
+    // anorLoadScript("table.js");
+    
+    // Initialize tables master with proper DOM timing
+    setTimeout(function() {
+        if (typeof initTablesMaster !== 'undefined') {
+            initTablesMaster();
+        }
+    }, 100);
+</script>

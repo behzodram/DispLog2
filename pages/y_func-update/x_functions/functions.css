@@ -3,6 +3,69 @@
     margin-bottom: 14px;
 }
 
+/* ── folder tabs (Telegram-style) ────────────────────────────────────────── */
+.folder-tabs {
+    display: flex;
+    gap: 4px;
+    padding: 6px 4px 0;
+    border-bottom: 1px solid #2a2d35;
+    margin-bottom: 10px;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.folder-tabs::-webkit-scrollbar {
+    display: none;
+}
+
+.folder-tab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    padding: 6px 16px 8px;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    border-radius: 6px 6px 0 0;
+    transition: background 0.15s, border-color 0.15s;
+    white-space: nowrap;
+    min-width: 60px;
+}
+
+.folder-tab:hover {
+    background: rgba(255,255,255,0.05);
+}
+
+.folder-tab .folder-icon {
+    font-size: 18px;
+    line-height: 1;
+}
+
+.folder-tab .folder-name {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.6px;
+    text-transform: lowercase;
+    color: #6a7077;
+    transition: color 0.15s;
+}
+
+.folder-tab.active {
+    border-bottom-color: #3a7bd5;
+}
+
+.folder-tab.active .folder-name {
+    color: #3a7bd5;
+}
+
+/* ── fn-join circle color ─────────────────────────────────────────────────── */
+.fn-join {
+    background: #ffffff;
+    color: #1a1d23;
+}
+
 .fn-list {
     display: flex;
     flex-direction: column;
@@ -79,4 +142,11 @@
 .fn-desc {
     font-size: 11px;
     color: #6a7077;
+}
+
+/* ── join result area ────────────────────────────────────────────────────── */
+.join-result-area {
+    display: block;
+    width: 100%;
+    margin-top: 6px;
 }

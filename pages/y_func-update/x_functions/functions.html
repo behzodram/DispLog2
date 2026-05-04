@@ -1,69 +1,102 @@
 <anor-style src="functions.css"></anor-style>
 <anor-style src="joinME.css"></anor-style>
 
-<div class="section fn-section">
-    <h3>⚡ Universal Executor</h3>
+<!-- ── Folder tabs ──────────────────────────────────────────────────────── -->
+<div class="folder-tabs">
+    <button class="folder-tab active" data-folder="user" onclick="switchFolder('user')">
+        <span class="folder-icon">👤</span>
+        <span class="folder-name">user</span>
+    </button>
+    <button class="folder-tab" data-folder="load" onclick="switchFolder('load')">
+        <span class="folder-icon">📦</span>
+        <span class="folder-name">load</span>
+    </button>
+    <button class="folder-tab" data-folder="join" onclick="switchFolder('join')">
+        <span class="folder-icon">🔗</span>
+        <span class="folder-name">join</span>
+    </button>
+</div>
 
-    <div class="fn-list">
+<!-- ── user folder ─────────────────────────────────────────────────────── -->
+<div class="fn-list folder-content" id="folder-user">
 
-        <div class="fn-row" onclick="selectFunction('INSERT_USER_PRFTV')">
-            <button class="fn-circle fn-insert">＋</button>
-            <div class="fn-label">
-                <span class="fn-title">NEW USER</span>
-                <span class="fn-desc">Yangi foydalanuvchi qo'shish</span>
-            </div>
+    <div class="fn-row" onclick="selectFunction('INSERT_USER_PRFTV')">
+        <button class="fn-circle fn-insert">＋</button>
+        <div class="fn-label">
+            <span class="fn-title">NEW USER</span>
+            <span class="fn-desc">Yangi foydalanuvchi qo'shish</span>
         </div>
-        
-        <div class="fn-row" onclick="selectFunction('INSERT_Load_MTTY')">
-            <button class="fn-circle fn-insert">＋</button>
-            <div class="fn-label">
-                <span class="fn-title">NEW LOAD</span>
-                <span class="fn-desc">Yangi yuk qo'shish</span>
-            </div>
-        </div>
-        
-
-        <div class="fn-row" onclick="selectFunction('UPDATE_USER_NAME_BY_PHONE')">
-            <button class="fn-circle fn-update">↻</button>
-            <div class="fn-label">
-                <span class="fn-title">UPD NAME</span>
-                <span class="fn-desc">Foydalanuvchi ismini o'zgartirish</span>
-            </div>
-        </div>
-
-        <div class="fn-row" onclick="selectFunction('UPDATE_USER_ROLE_BY_PHONE')">
-            <button class="fn-circle fn-update">↻</button>
-            <div class="fn-label">
-                <span class="fn-title">UPD ROLE</span>
-                <span class="fn-desc">Foydalanuvchi rolini o'zgartirish</span>
-            </div>
-        </div>
-
-        <div class="fn-row" onclick="selectFunction('UPDATE_CASH_CLOSED')">
-            <button class="fn-circle fn-update">↻</button>
-            <div class="fn-label">
-                <span class="fn-title">UPD CASH/CLOSED</span>
-                <span class="fn-desc">Yukning naqd va yopilgan holatini yangilash</span>
-            </div>
-        </div>
-
     </div>
+
+    <div class="fn-row" onclick="selectFunction('UPDATE_USER_NAME_BY_PHONE')">
+        <button class="fn-circle fn-update">↻</button>
+        <div class="fn-label">
+            <span class="fn-title">UPD NAME</span>
+            <span class="fn-desc">Foydalanuvchi ismini o'zgartirish</span>
+        </div>
+    </div>
+
+    <div class="fn-row" onclick="selectFunction('UPDATE_USER_ROLE_BY_PHONE')">
+        <button class="fn-circle fn-update">↻</button>
+        <div class="fn-label">
+            <span class="fn-title">UPD ROLE</span>
+            <span class="fn-desc">Foydalanuvchi rolini o'zgartirish</span>
+        </div>
+    </div>
+
+</div>
+
+<!-- ── load folder ─────────────────────────────────────────────────────── -->
+<div class="fn-list folder-content" id="folder-load" style="display:none">
+
+    <div class="fn-row" onclick="selectFunction('INSERT_Load_MTTY')">
+        <button class="fn-circle fn-insert">＋</button>
+        <div class="fn-label">
+            <span class="fn-title">NEW LOAD</span>
+            <span class="fn-desc">Yangi yuk qo'shish</span>
+        </div>
+    </div>
+
+    <div class="fn-row" onclick="selectFunction('UPDATE_CASH_CLOSED')">
+        <button class="fn-circle fn-update">↻</button>
+        <div class="fn-label">
+            <span class="fn-title">UPD CASH/CLOSED</span>
+            <span class="fn-desc">Yukning naqd va yopilgan holatini yangilash</span>
+        </div>
+    </div>
+
+</div>
+
+<!-- ── join folder ─────────────────────────────────────────────────────── -->
+<div class="fn-list folder-content" id="folder-join" style="display:none">
 
     <div class="fn-row" onclick="selectFunction('DRIVER_LOAD')">
         <button class="fn-circle fn-join">⨝</button>
         <div class="fn-label">
             <span class="fn-title">JOIN DRIVER</span>
             <span class="fn-desc">Yuk va haydovchi ma'lumotlarini birlashtirish</span>
+        </div>
     </div>
-    <!-- <div class="selection">
-        <button class="btn-primary" onclick="DRIVER_LOAD('78-113-99-95')">JOIN Drover</button>
-    </div> -->
-</div>
 
-<div id="TelegramFolderStyle"></div>
+    <div id="TelegramFolderStyle" class="join-result-area"></div>
+
+</div>
 
 <anor-script src="joinME.js"></anor-script>
 <anor-script src="functions.js"></anor-script>
 <anor-script src="pages.js"></anor-script>
 <anor-script src="maxsus-insert.js"></anor-script>
 <anor-script src="TogetherQuery.js"></anor-script>
+
+<script>
+function switchFolder(name) {
+    document.querySelectorAll('.folder-content').forEach(function(el) {
+        el.style.display = 'none';
+    });
+    document.querySelectorAll('.folder-tab').forEach(function(el) {
+        el.classList.remove('active');
+    });
+    document.getElementById('folder-' + name).style.display = 'flex';
+    document.querySelector('.folder-tab[data-folder="' + name + '"]').classList.add('active');
+}
+</script>

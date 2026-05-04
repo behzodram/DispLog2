@@ -182,6 +182,7 @@ function runActiveFunction() {
                 } catch(e) {
                     app.ShowPopup("❌ Xato: function.js -> runActiveFunction -> special -> " + e.message);
                 }
+                _hideAfterRun();
                 return;
             }
         }
@@ -189,4 +190,19 @@ function runActiveFunction() {
 
     // default holat
     executeUniversalFunction(_activeFunctionName);
+
+    _hideAfterRun();
+}
+
+function _hideAfterRun() {
+    // Preset (x) bilan hide
+    if (typeof hidePresetPanel === 'function') hidePresetPanel();
+
+    // Panel DW arrow bilan hide
+    var bottomPanel = document.getElementById('bottom-panel');
+    var showBtn     = document.getElementById('panel-show-btn');
+    var toggleBtn   = document.getElementById('panel-toggle-btn');
+    if (bottomPanel) bottomPanel.classList.add('panel-hidden');
+    if (showBtn)     showBtn.style.display = 'block';
+    if (toggleBtn) { toggleBtn.textContent = '⬆️'; toggleBtn.title = "Panelni ko'rsatish"; }
 }

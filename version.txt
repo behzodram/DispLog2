@@ -1,3 +1,4 @@
+v 1.9.6 => main: auto Hide panel/preset added. No Test
 v 1.9.5 => main: Yukchi Join added. No Test
 v 1.9.4 => main: Sahifa telegram style qilindi. No APK test.
 v 1.9.3 => main: init commit2

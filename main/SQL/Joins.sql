@@ -38,6 +38,16 @@ SELECT ismi, phone, role, qayerdan, qayerga, transport
     AND updated_at >= DATETIME('now', '-' || ?)
     ORDER BY updated_at DESC;
 
+-- SHOW_ALL_LOADS:
+SELECT l.yukchi_phone, s.ismi AS yukchi_ismi,
+    l.qayerdan, l.qayerga, l.transport,
+    l.tonna, l.turi, l.tumandan, l.tumanga,
+    l.matni, l.narx, l.yopilgan, l.updated_at
+    FROM loads l
+    LEFT JOIN users s ON s.phone = l.yukchi_phone
+    WHERE l.updated_at >= DATETIME('now', '-' || ?)
+    ORDER BY l.updated_at DESC;
+
 -- SHOW_USER:
 SELECT ismi, phone, role, qayerdan, qayerga, transport
     FROM users

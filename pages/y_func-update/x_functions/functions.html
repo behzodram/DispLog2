@@ -15,6 +15,10 @@
         <span class="folder-icon">🔗</span>
         <span class="folder-name">join</span>
     </button>
+    <button class="folder-tab" data-folder="search" onclick="switchFolder('search')">
+        <span class="folder-icon">🔍</span>
+        <span class="folder-name">search</span>
+    </button>
 </div>
 
 <!-- ── user folder ─────────────────────────────────────────────────────── -->
@@ -86,11 +90,26 @@
         </div>
     </div>
 
+    <div id="TelegramJoinStyle" class="join-result-area"></div>
+
+</div>
+
+<!-- ── search folder ───────────────────────────────────────────────────── -->
+<div class="fn-list folder-content" id="folder-search" style="display:none">
+
     <div class="fn-row" onclick="selectFunction('SHOW_ALL_USERS')">
         <button class="fn-circle fn-select">🔍</button>
         <div class="fn-label">
             <span class="fn-title">ALL USERS</span>
             <span class="fn-desc">So'nggi n kun ichida yangilangan foydalanuvchilarni ko'rsatish</span>
+        </div>
+    </div>
+
+    <div class="fn-row" onclick="selectFunction('SHOW_ALL_LOADS')">
+        <button class="fn-circle fn-select">🔍</button>
+        <div class="fn-label">
+            <span class="fn-title">ALL LOADS</span>
+            <span class="fn-desc">So'nggi n kun ichida yangilangan yuklarni ko'rsatish</span>
         </div>
     </div>
 
@@ -102,7 +121,7 @@
         </div>
     </div>
 
-    <div id="TelegramFolderStyle" class="join-result-area"></div>
+    <div id="TelegramSearchStyle" class="join-result-area"></div>
 
 </div>
 
@@ -123,4 +142,39 @@ function switchFolder(name) {
     document.getElementById('folder-' + name).style.display = 'flex';
     document.querySelector('.folder-tab[data-folder="' + name + '"]').classList.add('active');
 }
+
+// Bosilgan fn-row ni bilinar-bilinmas ajratib ko'rsatish
+document.addEventListener('click', function(e) {
+    var row = e.target.closest('.fn-row');
+    if (!row) return;
+    var folder = row.closest('.folder-content');
+    if (folder) {
+        folder.querySelectorAll('.fn-row').forEach(function(r) {
+            r.classList.remove('fn-row-selected');
+        });
+    }
+    row.classList.add('fn-row-selected');
+});
+
+// renderResults ni intercept qilib to'g'ri containerga yo'naltirish
+(function() {
+    function _hook() {
+        if (typeof renderResults !== 'function') { setTimeout(_hook, 100); return; }
+        var _orig = renderResults;
+        window.renderResults = function(results, opts) {
+            opts = opts || {};
+            if (!opts.containerId) {
+                var activeTab = document.querySelector('.folder-tab.active');
+                var folder = activeTab ? activeTab.getAttribute('data-folder') : null;
+                if (folder === 'join') {
+                    opts.containerId = 'TelegramJoinStyle';
+                } else if (folder === 'search') {
+                    opts.containerId = 'TelegramSearchStyle';
+                }
+            }
+            _orig(results, opts);
+        };
+    }
+    setTimeout(_hook, 200);
+})();
 </script>

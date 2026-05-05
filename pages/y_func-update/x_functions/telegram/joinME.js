@@ -92,6 +92,41 @@ function SHOW_ALL_USERS(role, timeOffset, callback) {
     );
 }
 
+function SHOW_ALL_LOADS(timeOffset, callback) {
+    if (typeof timeOffset === 'function') { callback = timeOffset; timeOffset = '7 days'; }
+    db.ExecuteSql(
+        queries['SHOW_ALL_LOADS'], [timeOffset || '7 days'],
+        function (res) {
+            var result = [];
+            for (var i = 0; i < res.rows.length; i++) {
+                var row = res.rows.item(i);
+                result.push({
+                    yukchi_ismi:  row.yukchi_ismi,
+                    yukchi_phone: row.yukchi_phone,
+                    qayerdan:     row.qayerdan,
+                    qayerga:      row.qayerga,
+                    transport:    row.transport,
+                    tonna:        row.tonna,
+                    turi:         row.turi,
+                    tumandan:     row.tumandan,
+                    tumanga:      row.tumanga,
+                    matni:        row.matni,
+                    narx:         row.narx,
+                    yopilgan:     row.yopilgan,
+                    updated_at:   row.updated_at
+                });
+            }
+            if (callback) callback(result);
+            else renderResults(result, { emptyMsg: '∅ Yuklar topilmadi', groupBy: 'yukchi_ismi', groupPhoneKey: 'yukchi_phone', cardSchema: LOAD_CARD_SCHEMA, cardOpts: { statusKey: 'yopilgan' } });
+        },
+        function (err) {
+            console.log('SQL Error:', err);
+            if (callback) callback([]);
+            else renderResults([], { emptyMsg: '∅ Yuklar topilmadi', groupBy: 'yukchi_ismi', groupPhoneKey: 'yukchi_phone', cardSchema: LOAD_CARD_SCHEMA, cardOpts: { statusKey: 'yopilgan' } });
+        }
+    );
+}
+
 var DRIVER_CARD_SCHEMA = [
     { icon: '👤', label: 'Haydovchi:', key: 'driver_ismi' },
     { icon: '📍', label: "Yo'nalish:", format: function(v, d) { return (d.qayerdan || '?') + ' → ' + (d.qayerga || '?'); } },

@@ -125,5 +125,16 @@ var functionSignatures = {
             // Hech qanday source kerak emas
             return true;
         }
+    },
+
+    SHOW_ALL_LOADS: {
+        name: 'SHOW_ALL_LOADS',
+        type: 'SELECT',
+        args: ['time'],
+        sources: ['time'],
+        description: 'Barcha yuklarni ko\'rsatish (yangi yuqorida)',
+        validator: function(data) {
+            return true;
+        }
     }
 };

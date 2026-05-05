@@ -175,3 +175,16 @@
     padding: 24px 0;
     letter-spacing: 0.3px;
 }
+/* ── Card copy icon ────────────────────────────────────────────────── */
+.tg-card-copy-icon {
+    width: 18px;
+    height: 18px;
+    align-self: flex-end;
+    opacity: 0.35;
+    cursor: pointer;
+    margin-top: 4px;
+    transition: opacity 0.18s, transform 0.15s;
+    filter: drop-shadow(0 1px 3px rgba(0,0,0,0.4));
+}
+.tg-card-copy-icon:hover  { opacity: 0.85; transform: scale(1.15); }
+.tg-card-copy-icon:active { opacity: 0.6;  transform: scale(0.92); }

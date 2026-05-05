@@ -160,3 +160,17 @@
     width: 100%;
     margin-top: 6px;
 }
+
+/* ── fn-row copy icon ─────────────────────────────────────────────── */
+.fn-row-copy-icon {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+    opacity: 0.35;
+    cursor: pointer;
+    transition: opacity 0.18s, transform 0.15s;
+    filter: drop-shadow(0 1px 3px rgba(0,0,0,0.4));
+    margin-left: auto;
+}
+.fn-row-copy-icon:hover  { opacity: 0.85; transform: scale(1.15); }
+.fn-row-copy-icon:active { opacity: 0.6;  transform: scale(0.92); }

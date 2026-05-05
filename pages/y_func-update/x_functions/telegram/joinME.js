@@ -32,7 +32,7 @@ function YUKCHI_LOAD(phone, callback) {
 var USER_CARD_SCHEMA = [
     { icon: '👤', label: 'Ismi:',     key: 'ismi' },
     { icon: '🏷',  label: 'Role:',     key: 'role' },
-    { icon: '📍', label: "Yo'nalish:", format: function(v, d) { return (d.qayerdan || '?') + ' → ' + (d.qayerga || '?'); } },
+    { icon: '📍', label: "Yo'nalish:", format: function(v, d) { return _region(d.qayerdan) + ' → ' + _region(d.qayerga); } },
     { icon: '🚚', label: 'Transport:', key: 'transport' },
     { icon: '📞', label: 'Telefon:',   key: 'phone' }
 ];
@@ -116,26 +116,59 @@ function SHOW_ALL_LOADS(timeOffset, callback) {
                     updated_at:   row.updated_at
                 });
             }
+            _lastAllLoads = result;
             if (callback) callback(result);
-            else renderResults(result, { emptyMsg: '∅ Yuklar topilmadi', groupBy: 'yukchi_ismi', groupPhoneKey: 'yukchi_phone', cardSchema: LOAD_CARD_SCHEMA, cardOpts: { statusKey: 'yopilgan' } });
+            else renderResults(result, { emptyMsg: '∅ Yuklar topilmadi', groupBy: 'yukchi_ismi', groupPhoneKey: 'yukchi_phone', cardSchema: LOAD_CARD_SCHEMA, cardOpts: { statusKey: 'yopilgan', copyIcon: true } });
         },
         function (err) {
             console.log('SQL Error:', err);
+            _lastAllLoads = [];
             if (callback) callback([]);
-            else renderResults([], { emptyMsg: '∅ Yuklar topilmadi', groupBy: 'yukchi_ismi', groupPhoneKey: 'yukchi_phone', cardSchema: LOAD_CARD_SCHEMA, cardOpts: { statusKey: 'yopilgan' } });
+            else renderResults([], { emptyMsg: '∅ Yuklar topilmadi', groupBy: 'yukchi_ismi', groupPhoneKey: 'yukchi_phone', cardSchema: LOAD_CARD_SCHEMA, cardOpts: { statusKey: 'yopilgan', copyIcon: true } });
         }
     );
 }
 
+// ─── Region helper ───────────────────────────────────────────────────────────
+function _region(code) {
+    if (!code) return '?';
+    return (typeof regionsMap !== 'undefined' && regionsMap[code]) ? regionsMap[code] : code;
+}
+
+// ─── SHOW_ALL_LOADS bulk copy ──────────────────────────────────────────────────
+var _lastAllLoads = [];
+
+function _buildLoadCopyText(d) {
+    var lines = [];
+    lines.push("📍 Yo'nalish: " + _region(d.qayerdan) + ' → ' + _region(d.qayerga));
+    if (d.tumandan || d.tumanga) lines.push('🏘 Tuman: ' + (d.tumandan || '?') + ' → ' + (d.tumanga || '?'));
+    if (d.transport) lines.push('🚚 Transport: ' + d.transport);
+    if (d.tonna)     lines.push('⚖ Tonna: ' + d.tonna + ' T');
+    if (d.turi)      lines.push('📦 Turi: ' + d.turi);
+    if (d.yopilgan)  lines.push('⏰ Holati: ' + d.yopilgan);
+    return lines.join('\n');
+}
+
+function _copyAllLoads() {
+    if (!_lastAllLoads || !_lastAllLoads.length) {
+        app.ShowPopup('Hech qanday yuk yuklanmagan');
+        return;
+    }
+    var texts = _lastAllLoads.map(function(d) { return _buildLoadCopyText(d); });
+    var full = texts.join('\n\n\n\n');
+    app.SetClipboardText(full);
+    app.ShowPopup(_lastAllLoads.length + ' ta yuk nusxalandi');
+}
+
 var DRIVER_CARD_SCHEMA = [
     { icon: '👤', label: 'Haydovchi:', key: 'driver_ismi' },
-    { icon: '📍', label: "Yo'nalish:", format: function(v, d) { return (d.qayerdan || '?') + ' → ' + (d.qayerga || '?'); } },
+    { icon: '📍', label: "Yo'nalish:", format: function(v, d) { return _region(d.qayerdan) + ' → ' + _region(d.qayerga); } },
     { icon: '🚚', label: 'Transport:', key: 'transport' },
     { icon: '📞', label: 'Telefon:',   key: 'driver_phone' }
 ];
 
 var LOAD_CARD_SCHEMA = [
-    { icon: '📍', label: "Yo'nalish:", format: function(v, d) { return (d.qayerdan || '?') + ' → ' + (d.qayerga || '?'); } },
+    { icon: '📍', label: "Yo'nalish:", format: function(v, d) { return _region(d.qayerdan) + ' → ' + _region(d.qayerga); } },
     { icon: '🏘', label: 'Tuman:',     format: function(v, d) { return (d.tumandan || d.tumanga) ? (d.tumandan || '?') + ' → ' + (d.tumanga || '?') : null; } },
     { icon: '🚚', label: 'Transport:', key: 'transport' },
     { icon: '⚖',  label: 'Tonna:',    format: function(v, d) { return d.tonna ? d.tonna + ' T' : null; } },
@@ -190,6 +223,21 @@ function _buildCard(data, schema, opts) {
         badge.className = 'tg-status-badge ' + (isOpen ? 'tg-status-open' : 'tg-status-closed');
         badge.textContent = isOpen ? 'OPEN' : 'CLOSED';
         card.appendChild(badge);
+    }
+
+    if (opts.copyIcon) {
+        var copyBtn = document.createElement('img');
+        copyBtn.src = './images/copy.png';
+        copyBtn.className = 'tg-card-copy-icon';
+        copyBtn.title = 'Nusxalash';
+        (function(d) {
+            copyBtn.onclick = function(e) {
+                e.stopPropagation();
+                app.SetClipboardText(_buildLoadCopyText(d));
+                app.ShowPopup('Nusxalandi');
+            };
+        })(data);
+        card.appendChild(copyBtn);
     }
 
     return card;

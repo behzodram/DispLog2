@@ -61,6 +61,14 @@ var _inputRowConfig = [
             var tonna = document.getElementById('load-cash-tonna');
             if (tonna) tonna.value = '';
         }
+    },
+    {
+        btnsId:  'time-btns',
+        iconId:  'time-icon',
+        clearFn: function() {
+            var inp = document.getElementById('time-input');
+            if (inp) inp.value = '';
+        }
     }
     // Keyingi input icon: { btnsId: 'xxx-btns', iconId: 'xxx-icon', clearFn: function() { ... } }
 ];
@@ -974,6 +982,81 @@ function submitLoadCash() {
     var icon = document.getElementById("load-cash-icon");
     if (btns) btns.classList.remove("active");
     if (icon) icon.classList.remove("active");
+}
+
+// ─── toggleTime ─────────────────────────────────────────────────────────────
+// Icon click: Faqat time row ochiladi (boshqalar yopiladi).
+function toggleTime() {
+    var icon = document.getElementById('time-icon');
+    var btns = document.getElementById('time-btns');
+
+    if (!icon || !btns) return;
+
+    var wasActive = btns.classList.contains('active');
+
+    for (var i = 0; i < _rowConfig.length; i++) {
+        closeRow(i);
+    }
+    closeAllInputRows();
+
+    if (!wasActive) {
+        btns.classList.add('active');
+        icon.classList.add('active');
+
+        showPanelOverlay();
+
+        var input = document.getElementById('time-input');
+        if (input) {
+            setTimeout(function() { input.focus(); input.select(); }, 100);
+        }
+    }
+
+    var panel = document.getElementById('bottom-panel');
+    if (panel) panel.classList.remove('panel-collapsed');
+
+    if (!wasActive && typeof openPresetForRow === 'function') {
+        openPresetForRow('time');
+    }
+}
+
+// ─── submitTime ──────────────────────────────────────────────────────────────
+// 'kun' | 'soat' | 'minut' button bosilganda chaqiriladi.
+// n=1: '1 day' / '1 hour' / '1 minut', n>1: 'n days' / 'n hours' / 'n minutes'
+function submitTime(type) {
+    var input = document.getElementById('time-input');
+    if (!input) return;
+
+    var n = parseInt(input.value.trim(), 10);
+
+    if (isNaN(n) || n <= 0) {
+        app.ShowPopup('Son kiriting (musbat)');
+        return;
+    }
+
+    var value;
+    if (type === 'kun') {
+        value = n === 1 ? '1 day' : n + ' days';
+    } else if (type === 'soat') {
+        value = n === 1 ? '1 hour' : n + ' hours';
+    } else if (type === 'minut') {
+        value = n === 1 ? '1 minut' : n + ' minutes';
+    } else {
+        return;
+    }
+
+    if (typeof addPresetFromPanel === 'function') {
+        addPresetFromPanel('time', value);
+    } else {
+        navigator.clipboard.writeText(value);
+        app.ShowPopup(value + ' nusxa olindi');
+    }
+
+    input.value = '';
+
+    var btnsEl = document.getElementById('time-btns');
+    var iconEl = document.getElementById('time-icon');
+    if (btnsEl) btnsEl.classList.remove('active');
+    if (iconEl) iconEl.classList.remove('active');
 }
 
 // ─── toggleClosed ─────────────────────────────────────────────────────────────

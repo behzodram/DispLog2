@@ -35,7 +35,8 @@ WHERE u.phone = ?
 SELECT ismi, phone, role, qayerdan, qayerga, transport
     FROM users
     WHERE role = ?
-    ORDER BY ismi;
+    AND updated_at >= DATETIME('now', '-' || ?)
+    ORDER BY updated_at DESC;
 
 -- SHOW_USER:
 SELECT ismi, phone, role, qayerdan, qayerga, transport

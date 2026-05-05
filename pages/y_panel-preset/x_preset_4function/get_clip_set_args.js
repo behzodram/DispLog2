@@ -198,6 +198,7 @@ function renderPastePresets() {
             else if (source === 'tuman') icon.src = "./images/pp_tuman-loc.png";
             else if (source === 'type17') icon.src = "./images/pp_type17.png";
             else if (source === 'load_cash') icon.src = "./images/pp_load-cash.png";
+            else if (source === 'time') icon.src = "./images/pp_time.png";
             else if (source === 'closed')    icon.src = "./images/pp_closed.png";
             
             content.appendChild(icon);
@@ -392,6 +393,7 @@ function openPresetForRow(rowType) {
         else if (icon.src.includes("pp_weight.png")) sourceType = 'weight';
         else if (icon.src.includes("pp_tuman-loc.png")) sourceType = 'tuman';
         else if (icon.src.includes("pp_type17.png")) sourceType = 'type17';
+        else if (icon.src.includes("pp_time.png")) sourceType = 'time';
         
         if (sourceType === rowType) {
             // SELECTABLE
@@ -435,6 +437,7 @@ function setupPresetSourceClickHandlers() {
             else if (newIcon.src.includes("pp_weight.png")) sourceType = 'weight';
             else if (newIcon.src.includes("pp_tuman-loc.png")) sourceType = 'tuman';
             else if (newIcon.src.includes("pp_type17.png")) sourceType = 'type17';
+            else if (newIcon.src.includes("pp_time.png")) sourceType = 'time';
             else if (newIcon.src.includes("pp_CarType3.png")) sourceType = 'car';
             else if (newIcon.src.includes("pp_contact3.png")) sourceType = 'contact';
             else if (newIcon.src.includes("pp_location3.png")) sourceType = 'location';

@@ -37,7 +37,8 @@ function executeUniversalFunction(functionName) {
         tuman: [],
         type17: [],
         load_cash: [],
-        closed: []
+        closed: [],
+        time: []
     };
     
     // Hozirda pastePresets bo'lmasa, xato
@@ -75,6 +76,7 @@ function executeUniversalFunction(functionName) {
     var type17Index = 0;
     var loadCashIndex = 0;
     var closedIndex = 0;
+    var timeIndex = 0;
     for (var j = 0; j < sig.sources.length; j++) {
         var sourceType = sig.sources[j];
         var value = "";
@@ -112,6 +114,9 @@ function executeUniversalFunction(functionName) {
         } else if (sourceType === 'closed') {
             value = collectedData.closed[closedIndex] || "";
             closedIndex++;
+        } else if (sourceType === 'time') {
+            value = collectedData.time[timeIndex] || "";
+            timeIndex++;
         } else if (sourceType === null) {
             // User qo'lda kiritadi
             value = prompt("Qiymatni kiriting: " + sig.args[j]);

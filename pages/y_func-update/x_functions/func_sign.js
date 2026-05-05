@@ -118,8 +118,8 @@ var functionSignatures = {
     SHOW_ALL_USERS: {
         name: 'SHOW_ALL_USERS',
         type: 'SELECT',
-        args: ['role'],
-        sources: ['role'],
+        args: ['role', 'time'],
+        sources: ['role', 'time'],
         description: 'Barcha foydalanuvchilarni ko\'rsatish',
         validator: function(data) {
             // Hech qanday source kerak emas

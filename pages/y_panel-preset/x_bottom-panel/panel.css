@@ -553,6 +553,49 @@ button:active { opacity: var(--active-opacity); transform: translateY(0); }
     transform: none;
 }
 
+/* ── time input row ── */
+#time-btns {
+    grid-template-columns: 1fr !important;
+    gap: 8px;
+}
+
+#time-btns .name-input {
+    margin-bottom: 0;
+}
+
+.time-toggle-row {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+}
+
+.time-toggle-btn {
+    flex: 1;
+    height: 36px;
+    padding: 0;
+    font-size: 14px;
+    font-weight: 700;
+    background: #4a5d7f;
+    color: #e0e0e6;
+    border: 1.5px solid #5a6d8f;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0,0,0,.35);
+    transition: background 0.2s, transform 0.1s, border-color 0.2s;
+}
+
+.time-toggle-btn:hover {
+    background: #5a6d9f;
+    border-color: #7a8dbf;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(0,0,0,.4);
+}
+
+.time-toggle-btn:active {
+    opacity: .75;
+    transform: none;
+}
+
 /* ── timepicker buttonlari ── */
 .t3-btn {
     height: 36px;

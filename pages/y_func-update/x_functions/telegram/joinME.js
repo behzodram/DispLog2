@@ -64,9 +64,10 @@ function SHOW_USER(phone, callback) {
     );
 }
 
-function SHOW_ALL_USERS(role, callback) {
+function SHOW_ALL_USERS(role, timeOffset, callback) {
+    if (typeof timeOffset === 'function') { callback = timeOffset; timeOffset = '30 days'; }
     db.ExecuteSql(
-        queries['SHOW_ALL_USERS'], [role],
+        queries['SHOW_ALL_USERS'], [role, timeOffset || '30 days'],
         function (res) {
             var result = [];
             for (var i = 0; i < res.rows.length; i++) {

@@ -27,6 +27,7 @@
         <img src="./images/pp_tuman-loc.png" class="row-icon" id="tuman-icon" onclick="toggleTumanLoc()">
         <img src="./images/pp_type17.png" class="row-icon" id="type17-icon" onclick="toggleType17()">
         <img src="./images/pp_load-cash.png" class="row-icon" id="load-cash-icon" onclick="toggleLoadCash()">
+        <img src="./images/pp_time.png" class="row-icon" id="time-icon" onclick="toggleTime()">
         <div class="closed-toggle" id="closed-toggle" data-state="open" onclick="toggleClosed()" title="Yuk holati">
             <span class="ct-label ct-closed">CLOSED</span>
             <div class="ct-thumb"><img src="./images/pp_closed.png" class="ct-icon"></div>
@@ -105,6 +106,16 @@
         <button class="load-cash-clear-btn" onclick="clearLoadCashTonna()" title="Tonnani tozalash">✕</button>
         <button class="load-cash-000-btn" onclick="appendThreeZeros()">000</button>
         <button class="name-accept-btn" onclick="submitLoadCash()">add</button>
+    </div>
+
+    <!-- Row 11: Time input -->
+    <div id="time-btns" class="row-content">
+        <input type="number" inputmode="numeric" id="time-input" class="name-input" placeholder="Son kiriting..." />
+        <div class="time-toggle-row">
+            <button class="time-toggle-btn" onclick="submitTime('kun')">kun</button>
+            <button class="time-toggle-btn" onclick="submitTime('soat')">soat</button>
+            <button class="time-toggle-btn" onclick="submitTime('minut')">minut</button>
+        </div>
     </div>
 </div>
 

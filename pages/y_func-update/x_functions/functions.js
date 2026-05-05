@@ -19,7 +19,8 @@ var _sourceIconMap = {
     tuman:     { src: './images/pp_tuman-loc.png', id: 'tuman-icon',      toggleFn: 'toggleTumanLoc'  },
     type17:    { src: './images/pp_type17.png',    id: 'type17-icon',     toggleFn: 'toggleType17'    },
     load_cash: { src: './images/pp_load-cash.png', id: 'load-cash-icon',  toggleFn: 'toggleLoadCash'  },
-    closed:    { src: './images/pp_closed.png',    id: 'closed-toggle',   toggleFn: 'toggleClosed'    }
+    closed:    { src: './images/pp_closed.png',    id: 'closed-toggle',   toggleFn: 'toggleClosed'    },
+    time:      { src: './images/pp_time.png',      id: 'time-icon',       toggleFn: 'toggleTime'      }
 };
 
 /**

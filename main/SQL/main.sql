@@ -43,7 +43,7 @@
         AND julianday('now') - julianday(created_at) <= 1;
 
     -- INSERT_Load_MTTY:
-    INSERT INTO loads (tonna, turi, tumandan, tumanga, matni, yukchi_phone) VALUES (?,?,?,?,?,?);
+    INSERT INTO loads (tonna, turi, yukchi_phone) VALUES (?,?,?);
     -- INSERT INTO loads (matni, turi, tonna, yukchi_phone) VALUES (?,?,?,?);
 
     -- UPD_LOADS_FROM_USERS:
@@ -65,6 +65,32 @@
 
     -- UPDATE_CASH_CLOSED:
     UPDATE loads SET narx = ?, yopilgan = ? 
+    WHERE yukchi_phone = ?
+    AND julianday('now') - julianday(created_at) <= 1;
+-- TOGETHER QUERIES end_tghr
+
+
+-- TOGETHER QUERIES begin_tghr
+    -- UPDATE_TONNA_TURI_TGHR:
+    SELECT tonna, turi, (julianday('now') - julianday(updated_at)) * 86400 AS sec_before_update
+        FROM loads WHERE yukchi_phone = ?
+        AND julianday('now') - julianday(created_at) <= 1;
+    
+    -- UPDATE_TONNA_TURI:
+    UPDATE loads SET tonna = ?, turi = ?
+    WHERE yukchi_phone = ?
+    AND julianday('now') - julianday(created_at) <= 1;
+-- TOGETHER QUERIES end_tghr
+
+
+-- TOGETHER QUERIES begin_tghr
+    -- UPDATE_TUMAN_TUMAN_TGHR:
+    SELECT tumandan, tumanga, (julianday('now') - julianday(updated_at)) * 86400 AS sec_before_update
+        FROM loads WHERE yukchi_phone = ?
+        AND julianday('now') - julianday(created_at) <= 1;
+    
+    -- UPDATE_TUMAN_TUMAN:
+    UPDATE loads SET tumandan = ?, tumanga = ?
     WHERE yukchi_phone = ?
     AND julianday('now') - julianday(created_at) <= 1;
 -- TOGETHER QUERIES end_tghr

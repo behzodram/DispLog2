@@ -1,3 +1,4 @@
+v 2.0.1 => main: Add + Load btn+. No APK test.
 v 2.0.0 => main: Yuklardan Nusxa olish. No APK test.
 v 1.9.9 => main: join vs search => selected button hovered. No APK test.
 v 1.9.8 => main: Time Icon added. No Test.

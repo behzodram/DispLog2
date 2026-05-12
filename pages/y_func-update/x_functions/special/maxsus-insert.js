@@ -41,22 +41,14 @@ function LOAD_ROW_TGHR(phone) {
     if ( PasteType('contact').length > 1 ) { app.Alert("contact 1ta bo'lishi kerak"); return; }
     if ( PasteType('weight').length > 1 ) { app.Alert("weight 1ta bo'lishi kerak"); return; }
     if ( PasteType('type17').length > 1 ) { app.Alert("type17 1ta bo'lishi kerak"); return; }
-    if ( PasteType('tuman').length > 2 ) { app.Alert("tuman 2ta bo'lishi kerak"); return; }
-    if ( PasteType('matni').length > 1 ) { app.Alert("matni 1ta bo'lishi kerak"); return; }
 
     var idem = {
         tonna:     PasteType('weight')[0]?.values['weight'] || '',
-        turi:      PasteType('type17')[0]?.values['type17'] || '',
-        tumandan:  PasteType('tuman')[0]?.values['tuman'] || '',
-        tumanga:   PasteType('tuman')[1]?.values['tuman'] || '',
-        matni:     PasteType('matni')[0]?.values['matni'] || ''
+        turi:      PasteType('type17')[0]?.values['type17'] || ''
     };
     var validMsg = {
         tonna:     idem.tonna === '' ? "Yuk vazni ?" : "",
-        turi:      idem.turi === '' ? "Yuk turi ?" : "",
-        tumandan:  idem.tumandan === '' ? "Yuk qaysi tumandan ?" : "",
-        tumanga:   idem.tumanga === '' ? "Yuk qaysi tumanga ?" : "",
-        matni:     idem.matni === '' ? "Yuk matni ?" : ""
+        turi:      idem.turi === '' ? "Yuk turi ?" : ""
     };
 
     var handler = new TogetherQuery(phone, idem, validMsg, 'Load', 'INSERT_Load_MTTY');
@@ -119,6 +111,54 @@ function UPDATE_CASH_CLOSED_TGHR(phone) {
     var handler = new TogetherQuery(phone, idem, validMsg, 'Load', 'UPDATE_CASH_CLOSED');
     db.ExecuteSql(
         queries["UPDATE_CASH_CLOSED_TGHR"],
+        [phone], handler.onResult.bind(handler), onUpdateError
+    );
+}
+
+function UPDATE_TONNA_TURI_TGHR(phone) {
+    phone = FormatPhonePretty(phone);
+    if ( policyPhone(phone) === false ) return;
+
+    if ( PasteType('contact').length > 1 ) { app.Alert("contact 1ta bo'lishi kerak"); return; }
+    if ( PasteType('weight').length > 1 ) { app.Alert("weight 1ta bo'lishi kerak"); return; }
+    if ( PasteType('type17').length > 1 ) { app.Alert("turi 1ta bo'lishi kerak"); return; }
+
+    var idem = {
+        tonna: PasteType('weight')[0]?.values['weight'] || '',
+        turi: PasteType('type17')[0]?.values['type17'] || ''
+    };
+    var validMsg = {
+        tonna: idem.tonna === '' ? "Yuk vazni ?" : "",
+        turi: idem.turi === '' ? "Yuk turi ?" : ""
+    };
+
+    var handler = new TogetherQuery(phone, idem, validMsg, 'Load', 'UPDATE_TONNA_TURI');
+    db.ExecuteSql(
+        queries["UPDATE_TONNA_TURI_TGHR"],
+        [phone], handler.onResult.bind(handler), onUpdateError
+    );
+}
+
+function UPDATE_TUMAN_TUMAN_TGHR(phone) {
+    phone = FormatPhonePretty(phone);
+    if ( policyPhone(phone) === false ) return;
+
+    if ( PasteType('contact').length > 1 ) { app.Alert("contact 1ta bo'lishi kerak"); return; }
+    if ( PasteType('tuman').length > 2 ) { app.Alert("tuman 2ta bo'lishi kerak"); return; }
+    if ( PasteType('tuman').length < 2 ) { app.Alert("tuman 2ta bo'lishi kerak"); return; }
+
+    var idem = {
+        tumandan: PasteType('tuman')[0]?.values['tuman'] || '',
+        tumanga: PasteType('tuman')[1]?.values['tuman'] || ''
+    };
+    var validMsg = {
+        tumandan: idem.tumandan === '' ? "Yuk qaysi tumandan ?" : "",
+        tumanga: idem.tumanga === '' ? "Yuk qaysi tumanga ?" : ""
+    };
+    
+    var handler = new TogetherQuery(phone, idem, validMsg, 'Load', 'UPDATE_TUMAN_TUMAN');
+    db.ExecuteSql(
+        queries["UPDATE_TUMAN_TUMAN_TGHR"],
         [phone], handler.onResult.bind(handler), onUpdateError
     );
 }

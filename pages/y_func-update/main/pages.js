@@ -88,12 +88,12 @@ function INSERT_USER_PRFTV(role, phone, qayerdan, qayerga, transport) {
      */
 }
 
-function INSERT_Load_MTTY(yukchi_phone, weight, turi, tumandan, tumanga, matni) {
+function INSERT_Load_MTTY(yukchi_phone, weight, turi) {
     yukchi_phone = FormatPhonePretty(yukchi_phone);
     if ( policyPhone(yukchi_phone) === false ) return;
     db.ExecuteSql(
         queries["INSERT_Load_MTTY"],
-        [weight, turi, tumandan, tumanga, matni, yukchi_phone], onUpdateSuccess, onUpdateError
+        [weight, turi, yukchi_phone], onUpdateSuccess, onUpdateError
          
     );
 
@@ -108,6 +108,26 @@ function UPDATE_CASH_CLOSED(phone, cash, closed) {
     db.ExecuteSql(
         queries["UPDATE_CASH_CLOSED"],
         [cash, closed, phone], onUpdateSuccess, onUpdateError
+    );
+}
+
+function UPDATE_TONNA_TURI(phone, tonna, turi) {
+    phone = FormatPhonePretty(phone);
+    if ( policyPhone(phone) === false ) return;
+
+    db.ExecuteSql(
+        queries["UPDATE_TONNA_TURI"],
+        [tonna, turi, phone], onUpdateSuccess, onUpdateError
+    );
+}
+
+function UPDATE_TUMAN_TUMAN(phone, tumandan, tumanga) {
+    phone = FormatPhonePretty(phone);
+    if ( policyPhone(phone) === false ) return;
+
+    db.ExecuteSql(
+        queries["UPDATE_TUMAN_TUMAN"],
+        [tumandan, tumanga, phone], onUpdateSuccess, onUpdateError
     );
 }
 

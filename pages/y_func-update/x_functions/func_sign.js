@@ -26,16 +26,14 @@ var functionSignatures = {
     INSERT_Load_MTTY: {
         name: 'INSERT_Load_MTTY',
         type: 'INSERT',
-        args: ['yukchi_phone', 'tonna', 'turi', 'tumandan', 'tumanga', 'matni'],
-        sources: ['contact', 'weight', 'type17', 'tuman', 'tuman', 'matni'],
+        args: ['phone', 'tonna', 'turi'],
+        sources: ['contact', 'weight', 'type17'],
         description: 'Yangi yuk qo\'shish',
         validator: function(data) {
-            // Kamasi: 1ta contact, 1ta weight, 2ta tuman, 1ta type17, 1ta matni
+            // Kamasi: 1ta contact, 1ta weight, 1ta type17
             return data.contact.length == 1 &&
                    data.weight.length == 1 &&
-                   data.tuman.length == 2 &&
-                   data.type17.length == 1 &&
-                   data.matni.length == 1;
+                   data.type17.length == 1;
         }
     },
 
@@ -50,6 +48,33 @@ var functionSignatures = {
             return data.contact.length == 1 &&
                    data.load_cash.length == 1 &&
                    data.closed.length == 1;
+        }
+    },
+
+    UPDATE_TONNA_TURI: {
+        name: 'UPDATE_TONNA_TURI',
+        type: 'UPDATE',
+        args: ['phone', 'tonna', 'turi'],
+        sources: ['contact', 'weight', 'type17'],
+        description: 'Yukning tonna va turini yangilash',
+        validator: function(data) {
+            // Kamasi: 1ta contact, 1ta weight, 1ta type17
+            return data.contact.length == 1 &&
+                   data.weight.length == 1 &&
+                   data.type17.length == 1;
+        }
+    },
+
+    UPDATE_TUMAN_TUMAN: {
+        name: 'UPDATE_TUMAN_TUMAN',
+        type: 'UPDATE',
+        args: ['phone', 'tumandan', 'tumanga'],
+        sources: ['contact', 'tuman', 'tuman'],
+        description: 'Yukning tumandan va tumanga yangilash',
+        validator: function(data) {
+            // Kamasi: 1ta contact, 2ta tuman
+            return data.contact.length == 1 &&
+                   data.tuman.length == 2;
         }
     },
 

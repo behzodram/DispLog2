@@ -140,12 +140,12 @@ var _lastAllLoads = [];
 
 function _buildLoadCopyText(d) {
     var lines = [];
-    lines.push("📍 Yo'nalish: " + _region(d.qayerdan) + ' → ' + _region(d.qayerga));
-    if (d.tumandan || d.tumanga) lines.push('🏘 Tuman: ' + (d.tumandan || '?') + ' → ' + (d.tumanga || '?'));
-    if (d.transport) lines.push('🚚 Transport: ' + d.transport);
-    if (d.tonna)     lines.push('⚖ Tonna: ' + d.tonna + ' T');
-    if (d.turi)      lines.push('📦 Turi: ' + d.turi);
-    if (d.yopilgan)  lines.push('⏰ Holati: ' + d.yopilgan);
+    lines.push("📍 " + _region(d.qayerdan) + ' → ' + _region(d.qayerga));
+    if (d.tumandan || d.tumanga) lines.push('🏘 ' + (d.tumandan || '?') + ' → ' + (d.tumanga || '?'));
+    if (d.transport) lines.push('🚚 ' + d.transport);
+    if (d.tonna)     lines.push('⚖ ' + d.tonna + ' T');
+    if (d.turi)      lines.push('📦 ' + d.turi);
+    if (d.yopilgan)  lines.push('⏰ ' + d.yopilgan);
     return lines.join('\n');
 }
 

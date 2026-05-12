@@ -12,5 +12,36 @@
     <div id="tableContainer"></div>
     <!-- <div id="TelegramFolderStyle"></div> -->
     
+    <button class="btn-primary" style="margin-top:8px" onclick="fill_add_with_()">Add + My Number</button>
     <anor-script src="then.js"></anor-script>
     <anor-script src="Trigger-Data.js"></anor-script>
+
+    <script>
+        function fill_add_with_() {
+            let text = app.GetClipboardText();
+
+            if (!text) {
+                app.ShowPopup('Clipboard mavjudmas.');
+                return;
+            }
+
+            // 90-636-27-04 formatdagi raqamni tekshirish
+            let phoneRegex = /\b\d{2}-\d{3}-\d{2}-\d{2}\b/;
+
+            // Agar clipboard ichida shunday formatdagi raqam bo‘lsa
+            if (phoneRegex.test(text)) {
+                app.ShowPopup('Add clipboardda tayyor');
+                return;
+            }
+
+            // Aks holda qo‘shiladi
+            text += '\n\n\n\n' + '❌❌❌❌❌❌❌';
+            text += '\n' + 'Dispecherlar ❌❌';
+            text += '\n' + 'Bezovta qilmasin';
+            text += '\n\n' + '☎ 90-636-27-04';
+
+            app.SetClipboardText(text);
+
+            app.ShowPopup('Elon + My Number');
+        }
+    </script>

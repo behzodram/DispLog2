@@ -104,6 +104,19 @@ var functionSignatures = {
         }
     },
 
+    UPDATE_USER_VEHICLE_BY_PHONE: {
+        name: 'UPDATE_USER_VEHICLE_BY_PHONE',
+        type: 'UPDATE',
+        args: ['phone', 'transport'],
+        sources: ['contact', 'car'],
+        description: 'User transportini o\'zgartirish',
+        validator: function(data) {
+            // Kamasi: 1ta contact, 1ta car
+            return data.contact.length == 1 &&
+                   data.car.length == 1;
+        }
+    },
+
     DRIVER_LOAD: {
         name: 'DRIVER_LOAD',
         type: 'SELECT',

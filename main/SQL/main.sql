@@ -36,6 +36,16 @@
 
 
 -- TOGETHER QUERIES begin_tghr
+    -- USER_ROW_UPD_VEHICLE_TGHR:
+    SELECT phone, transport, (julianday('now') - julianday(updated_at)) * 86400 AS sec_before_update
+        FROM users WHERE phone = ?;
+    
+    -- UPDATE_USER_VEHICLE_BY_PHONE:
+    UPDATE users SET transport = ? WHERE phone = ?;
+-- TOGETHER QUERIES end_tghr
+
+
+-- TOGETHER QUERIES begin_tghr
     -- LOAD_ROW_TGHR:
     SELECT tonna, turi, tumandan, tumanga, matni, yukchi_phone,
         (julianday('now') - julianday(updated_at)) * 86400 AS sec_before_update

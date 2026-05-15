@@ -91,6 +91,23 @@ function USER_ROW_UPD_URBP_TGHR(phone) {
     );
 }
 
+function USER_ROW_UPD_VEHICLE_TGHR(phone) {
+    phone = FormatPhonePretty(phone);
+    if ( policyPhone(phone) === false ) return;
+
+    if ( PasteType('contact').length > 1 ) { app.Alert("contact 1ta bo'lishi kerak"); return; }
+    if ( PasteType('car').length > 1 ) { app.Alert("transport 1ta bo'lishi kerak"); return; }
+
+    var idem = { transport: PasteType('car')[0]?.values['car'] || '' };
+    var validMsg = { transport: idem.transport === '' ? "User transport ?" : "" };
+
+    var handler = new TogetherQuery(phone, idem, validMsg, 'User', 'UPDATE_USER_VEHICLE_BY_PHONE');
+    db.ExecuteSql(
+        queries["USER_ROW_UPD_VEHICLE_TGHR"],
+        [phone], handler.onResult.bind(handler), onUpdateError
+    );
+}
+
 function UPDATE_CASH_CLOSED_TGHR(phone) {
     phone = FormatPhonePretty(phone);
     if ( policyPhone(phone) === false ) return;

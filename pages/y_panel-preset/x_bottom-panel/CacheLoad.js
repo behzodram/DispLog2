@@ -109,7 +109,7 @@ function ShowCarType(name) {
     var data = "";
     if      (name === "FURA")   data = "FURA TENT,FURA REF";
     else if (name === "ISUZU")  data = "ISUZU KATTA,ISUZU KICHIK,ISUZU KATTA REF,ISUZU KICHIK REF";
-    else if (name === "BOSHQA") data = "CHAKMAN,PLASHATKA,KAMAZ";
+    else if (name === "BOSHQA") data = "CHAKMAN,PLASHATKA,KAMAZ,TANAR,SHALANDA";
 
     CAR_DIALOG = app.CreateListDialog(name, data);
     CAR_DIALOG.SetOnTouch(CarType_OnTouch);

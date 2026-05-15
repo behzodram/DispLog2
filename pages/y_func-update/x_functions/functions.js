@@ -158,6 +158,7 @@ function runActiveFunction() {
     let special = ['INSERT_USER_PRFTV', 'INSERT_Load_MTTY',
                    'UPDATE_USER_ROLE_BY_PHONE',
                    'UPDATE_USER_NAME_BY_PHONE',
+                   'UPDATE_USER_VEHICLE_BY_PHONE',
                    'UPDATE_CASH_CLOSED',
                    'UPDATE_TONNA_TURI',
                    'UPDATE_TUMAN_TUMAN'
@@ -171,7 +172,8 @@ function runActiveFunction() {
         'UPDATE_USER_NAME_BY_PHONE': 'USER_ROW_UPD_UNBP_TGHR',
         'UPDATE_CASH_CLOSED': 'UPDATE_CASH_CLOSED_TGHR',
         'UPDATE_TONNA_TURI': 'UPDATE_TONNA_TURI_TGHR',
-        'UPDATE_TUMAN_TUMAN': 'UPDATE_TUMAN_TUMAN_TGHR'
+        'UPDATE_TUMAN_TUMAN': 'UPDATE_TUMAN_TUMAN_TGHR',
+        'UPDATE_USER_VEHICLE_BY_PHONE': 'USER_ROW_UPD_VEHICLE_TGHR'
     };
 
     if ( special ) {

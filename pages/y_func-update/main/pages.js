@@ -153,3 +153,12 @@ function UPDATE_USER_ROLE_BY_PHONE(phone, role) {
         [role, phone], onUpdateSuccess, onUpdateError
     );
 }
+
+function UPDATE_USER_VEHICLE_BY_PHONE(phone, transport) {
+    phone = FormatPhonePretty(phone);
+    if ( policyPhone(phone) === false ) return;
+    db.ExecuteSql(
+        queries["UPDATE_USER_VEHICLE_BY_PHONE"],
+        [transport, phone], onUpdateSuccess, onUpdateError
+    );
+}
